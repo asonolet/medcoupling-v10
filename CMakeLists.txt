@@ -217,7 +217,7 @@ endif()
 
 enable_testing()
 
-add_subdirectory(medcoupling_data)
+add_subdirectory(medcoupling_core)
 
 # TODO: move all this logic specific to shape recogn to the shape recogn CMakeLists.txt
 if(MEDCOUPLING_ENABLE_SHAPERECOGN)
