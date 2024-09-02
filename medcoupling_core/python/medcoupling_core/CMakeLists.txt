@@ -68,53 +68,14 @@ target_link_libraries(${SWIG_MODULE_pymedcoupling_REAL_NAME}
   PUBLIC medcouplingcpp
   PRIVATE Python::Module Python::NumPy)
 
-###################
-# Remapper target #
-###################
-
-set_source_files_properties(MEDCouplingRemapper.i PROPERTIES CPLUSPLUS ON)
-if(WIN32)
-  set_property(SOURCE MEDCouplingRemapper.i PROPERTY COMPILE_DEFINITIONS WIN32)
-endif()
-
-swig_add_library(
-  MEDCouplingRemapper
-  LANGUAGE python
-  OUTPUT_DIR .
-  SOURCES MEDCouplingRemapper.i)
-
-target_include_directories(
-  ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME}
-  PRIVATE
-  "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
-
-set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
-set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
-
-target_link_libraries(${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME}
-  PUBLIC medcouplingremapper
-  PRIVATE Python::Module Python::NumPy)
-
-if(WIN32)
-  set_target_properties(${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME}
-    PROPERTIES DEBUG_OUTPUT_NAME _MEDCouplingRemapper_d)
-  set_target_properties(
-    ${SWIG_MODULE_pymedcoupling_REAL_NAME}
-    PROPERTIES DEBUG_OUTPUT_NAME _${MEDCouling_target_name}_d)
-endif()
-
 ################
 # Installation #
 ################
 
 install(TARGETS ${SWIG_MODULE_pymedcoupling_REAL_NAME}
-  ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME}
   # RUNTIME_DEPENDENCIES DIRECTORIES ${MEDCOUPLING_INSTALL_LIBS}
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 
-install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/MEDCouplingRemapper.py
-  DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/pymedcoupling.py
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
@@ -147,7 +108,6 @@ set(BASE_TESTS
   MEDCouplingBasicsTest7.py
   MEDCouplingIntersectTest.py
   MEDCouplingExamplesTest.py
-  MEDCouplingRemapperTest.py
   UsersGuideExamplesTest.py
 )
 

@@ -66,7 +66,7 @@ target_include_directories(InterpKernelTestUtils PUBLIC ${CMAKE_CURRENT_SOURCE_D
 
 add_library(InterpKernelTest ${InterpKernelTest_SOURCES})
 
-set(InterpKernelTest_LIBS medcouplingcpp interpkernel cppunit::cppunit)
+set(InterpKernelTest_LIBS medcouplingcpp cppunit::cppunit)
 if(NOT MEDCOUPLING_MICROMED)
   set(InterpKernelTest_LIBS medloader ${InterpKernelTest_LIBS})
 endif(NOT MEDCOUPLING_MICROMED)

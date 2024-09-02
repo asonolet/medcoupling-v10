@@ -67,8 +67,9 @@ set(INTERPKERNEL_SOURCES
     LinearAlgebra/InterpKernelLUDecomp.cxx
     LinearAlgebra/InterpKernelQRDecomp.cxx)
 
-add_library(interpkernel ${INTERPKERNEL_SOURCES})
-add_library(MEDCoupling::interpkernel ALIAS interpkernel)
+add_library(interpkernel OBJECT ${INTERPKERNEL_SOURCES})
+# add_library(MEDCoupling::interpkernel ALIAS interpkernel)
+target_compile_options(interpkernel PRIVATE -fPIC)
 
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(interpkernel PUBLIC "MEDCOULPING_USE_64BIT_IDS")
@@ -94,11 +95,11 @@ if(NOT WIN32)
   set_target_properties(interpkernel PROPERTIES COMPILE_FLAGS "-D_POSIX_MAPPED_FILES")
 endif(NOT WIN32)
 
-install(
-  TARGETS interpkernel
-  EXPORT ${CMAKE_PROJECT_NAME}TargetGroup
-  DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
-  INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
-
-file(GLOB_RECURSE interpkernel_HEADERS "${PROJECT_SOURCE_DIR}/include/interp_kernel/*")
-install(FILES ${interpkernel_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
+# install(
+#   TARGETS interpkernel
+#   EXPORT ${CMAKE_PROJECT_NAME}TargetGroup
+#   DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
+#   INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
+# 
+# file(GLOB_RECURSE interpkernel_HEADERS "${PROJECT_SOURCE_DIR}/include/interp_kernel/*")
+# install(FILES ${interpkernel_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})

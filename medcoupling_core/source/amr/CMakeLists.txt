@@ -16,6 +16,8 @@
 #
 # See http://www.salome-platform.org/ or email :
 # webmaster.salome@opencascade.com
+#
+# Author : Anthony Geay (CEA/DEN)
 
 # KILLER WARNINGS TO HELP INT64 MANAGEMENT ADD_DEFINITIONS(-Wextra -Wsynth
 # -Wno-unused-parameter -pedantic -Wall -Wshadow  -Wpointer-arith -Wcast-qual
@@ -25,42 +27,21 @@
 # -Wpacked -Wredundant-decls -Wlong-long -Wdisabled-optimization
 # -Wunknown-pragmas -Wundef  -Wreorder)
 
-add_subdirectory(interp_kernel)
-add_subdirectory(array)
-add_subdirectory(mesh)
-add_subdirectory(field)
-add_subdirectory(amr)
+set(MEDCOUPLING_SOURCES
+    MEDCouplingCartesianAMRMesh.cxx
+    MEDCouplingAMRAttribute.cxx)
 
+add_library(amr OBJECT ${MEDCOUPLING_SOURCES})
+target_compile_options(amr PRIVATE -fPIC)
 
-add_library(
-  medcouplingcpp
-  $<TARGET_OBJECTS:interpkernel>
-  $<TARGET_OBJECTS:array>
-  $<TARGET_OBJECTS:mesh>
-  $<TARGET_OBJECTS:field>
-  $<TARGET_OBJECTS:amr>)
-add_library(MEDCoupling::medcoupling ALIAS medcouplingcpp)
-
-set_target_properties(
-  medcouplingcpp PROPERTIES
-  INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH}
-  OUTPUT_NAME "medcoupling")
-
-if(MEDCOUPLING_USE_64BIT_IDS)
-  target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
+if(NOT DEFINED MSVC)
+  target_compile_options(amr PRIVATE -Wsign-compare -Wconversion)
 endif()
 
-target_link_libraries(medcouplingcpp PUBLIC interpkernel array mesh field amr)
-
-install(
-  TARGETS medcouplingcpp
-  EXPORT ${CMAKE_PROJECT_NAME}TargetGroup
-  DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
-  INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
-
-# TODO: separate medfile from med dependancy and compile it into the main lib
-# medfile_api needs to be splitten in medreader/medwriter (will go into
-# medcoupling_io) and polymesh => which is not dependant on Medfile
-if(NOT MEDCOUPLING_MICROMED)
-  add_subdirectory(medfile_api)
-endif()
+target_include_directories(
+  amr
+  PUBLIC
+  "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+)

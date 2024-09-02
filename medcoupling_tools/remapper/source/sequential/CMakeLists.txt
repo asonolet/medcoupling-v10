@@ -16,6 +16,8 @@
 #
 # See http://www.salome-platform.org/ or email :
 # webmaster.salome@opencascade.com
+#
+# Author : Anthony Geay (CEA/DEN)
 
 # KILLER WARNINGS TO HELP INT64 MANAGEMENT ADD_DEFINITIONS(-Wextra -Wsynth
 # -Wno-unused-parameter -pedantic -Wall -Wshadow  -Wpointer-arith -Wcast-qual
@@ -25,42 +27,23 @@
 # -Wpacked -Wredundant-decls -Wlong-long -Wdisabled-optimization
 # -Wunknown-pragmas -Wundef  -Wreorder)
 
-add_subdirectory(interp_kernel)
-add_subdirectory(array)
-add_subdirectory(mesh)
-add_subdirectory(field)
-add_subdirectory(amr)
-
-
-add_library(
-  medcouplingcpp
-  $<TARGET_OBJECTS:interpkernel>
-  $<TARGET_OBJECTS:array>
-  $<TARGET_OBJECTS:mesh>
-  $<TARGET_OBJECTS:field>
-  $<TARGET_OBJECTS:amr>)
-add_library(MEDCoupling::medcoupling ALIAS medcouplingcpp)
+set(MEDCOUPLINGREMAPPER_SOURCES MEDCouplingRemapper.cxx)
+add_library(medcouplingremapper ${MEDCOUPLINGREMAPPER_SOURCES})
+target_link_libraries(medcouplingremapper PUBLIC medcouplingcpp)
 
 set_target_properties(
-  medcouplingcpp PROPERTIES
-  INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH}
-  OUTPUT_NAME "medcoupling")
+  medcouplingremapper PROPERTIES
+  INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH})
 
 if(MEDCOUPLING_USE_64BIT_IDS)
-  target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
+  target_compile_definitions(medcouplingremapper PUBLIC "MEDCOULPING_USE_64BIT_IDS")
 endif()
 
-target_link_libraries(medcouplingcpp PUBLIC interpkernel array mesh field amr)
-
 install(
-  TARGETS medcouplingcpp
+  TARGETS medcouplingremapper
   EXPORT ${CMAKE_PROJECT_NAME}TargetGroup
   DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
   INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
 
-# TODO: separate medfile from med dependancy and compile it into the main lib
-# medfile_api needs to be splitten in medreader/medwriter (will go into
-# medcoupling_io) and polymesh => which is not dependant on Medfile
-if(NOT MEDCOUPLING_MICROMED)
-  add_subdirectory(medfile_api)
-endif()
+file(GLOB medcoupling_HEADERS "${PROJECT_SOURCE_DIR}/include/medcoupling_core/*")
+install(FILES ${medcoupling_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
