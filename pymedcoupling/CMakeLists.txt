@@ -61,9 +61,9 @@ target_include_directories(
   PRIVATE
   "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medcoupling_core>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/icoco>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medfile_api>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/para_medmem>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/rempper/python/para_remapper>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/icoco/python>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/renumberer/python>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/partitioner/python>"
 )

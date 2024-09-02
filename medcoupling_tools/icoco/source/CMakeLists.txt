@@ -28,7 +28,7 @@ add_library(MEDCoupling::medicoco ALIAS medicoco)
 
 target_include_directories(
   medicoco
-  PUBLIC "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/icoco>")
+  PUBLIC "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>")
 
 target_link_libraries(medicoco PUBLIC medcouplingcpp)
 
@@ -47,5 +47,5 @@ install(
   DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
   INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
 
-file(GLOB ICOCO_HEADERS "${PROJECT_SOURCE_DIR}/include/icoco/*")
+file(GLOB ICOCO_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*")
 install(FILES ${ICOCO_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
