@@ -22,7 +22,6 @@ macro(tohexa num result)
     list(GET _hexa_map ${_res} _out)
     set(${result} "0${_out}")
   endif()
-  message("Transforming " ${num} " into hex " ${${result}})
 endmacro()
 
 tohexa(${${PROJECT_NAME}_VERSION_MAJOR} _major)
