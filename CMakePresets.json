@@ -214,7 +214,7 @@
       "configurePreset": "dev-conan",
       "configuration": "Debug",
       "targets": "install",
-      "jobs": 1
+      "jobs": 8
     }
   ]
 }

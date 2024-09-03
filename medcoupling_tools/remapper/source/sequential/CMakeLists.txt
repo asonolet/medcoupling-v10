@@ -30,6 +30,9 @@
 set(MEDCOUPLINGREMAPPER_SOURCES MEDCouplingRemapper.cxx)
 add_library(medcouplingremapper ${MEDCOUPLINGREMAPPER_SOURCES})
 target_link_libraries(medcouplingremapper PUBLIC medcouplingcpp)
+target_include_directories(medcouplingremapper
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include/sequential>)
 
 set_target_properties(
   medcouplingremapper PROPERTIES
