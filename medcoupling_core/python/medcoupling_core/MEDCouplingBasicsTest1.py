@@ -18,8 +18,10 @@
 # See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
 #
 
-import sys
-from medcoupling import *
+import sys, os
+print(sys.path)
+print(os.getcwd())
+from medcoupling_core import *
 
 import unittest
 from math import pi,e,sqrt,cos,sin

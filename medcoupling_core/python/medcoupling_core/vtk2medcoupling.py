@@ -22,7 +22,7 @@
 
 import vtk
 from vtk.util import numpy_support
-import medcoupling as mc
+import medcoupling_core as mc
 import numpy as np
 
 def mesh_convertor(fileName):

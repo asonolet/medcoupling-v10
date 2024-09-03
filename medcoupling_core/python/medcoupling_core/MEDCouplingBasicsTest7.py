@@ -20,7 +20,7 @@
 
 
 import sys
-from medcoupling import *
+from medcoupling_core import *
 import unittest
 from math import pi,e,sqrt,cos,sin
 from datetime import datetime

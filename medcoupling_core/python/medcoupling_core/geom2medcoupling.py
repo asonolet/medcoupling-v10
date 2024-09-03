@@ -20,7 +20,7 @@
 #
 # Author : Anthony GEAY (EDF R&D)
 
-import medcoupling as mc
+import medcoupling_core as mc
 
 def __to_geomshape_3D(mcmesh):
     """

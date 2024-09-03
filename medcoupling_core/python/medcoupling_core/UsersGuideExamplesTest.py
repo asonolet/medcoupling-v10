@@ -20,7 +20,7 @@
 
 
 import sys
-from medcoupling import *
+from medcoupling_core import *
 from math import pi, sqrt
 
 # ! [PySnippetUMeshStdBuild1_1]

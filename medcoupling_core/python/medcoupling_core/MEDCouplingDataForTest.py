@@ -20,7 +20,7 @@
 
 
 import sys
-from medcoupling import *
+from medcoupling_core import *
 
 class MEDCouplingDataForTest:
     def build2DTargetMesh_1(cls):
