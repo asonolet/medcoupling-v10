@@ -74,9 +74,11 @@ set(BASE_TESTS
   RemapperUserGuideExamplesTest.py
 )
 
+# This test needs medcoupling install/lib/pythonX.Y/site-package to be in path
+# to run
 foreach(test ${BASE_TESTS})
   get_filename_component(testname ${test} NAME_WE)
-  add_test(NAME ${testname} COMMAND ${Python_EXECUTABLE}
-                                    ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-  set_tests_properties(${testname} PROPERTIES ENVIRONMENT "${tests_env}")
+  add_test(
+    NAME py${testname}
+    COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
 endforeach()
