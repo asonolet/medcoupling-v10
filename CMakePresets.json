@@ -216,5 +216,22 @@
       "targets": "install",
       "jobs": 8
     }
+  ],
+  "testPresets": [
+    {
+      "name": "dev-conan",
+      "configurePreset": "dev-conan",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "environment": {
+        "MEDCOUPLING_RESOURCE_DIR": "$env{PWD}/resources"
+      },
+      "execution": {
+        "jobs": 8,
+        "noTestsAction": "error"
+      }
+    }
   ]
 }
