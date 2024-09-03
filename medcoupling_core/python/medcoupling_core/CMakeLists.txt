@@ -119,18 +119,18 @@ set(ALL_TESTS ${BASE_TESTS} ${NUMPY_TESTS})
 foreach(test ${BASE_TESTS})
   get_filename_component(testname ${test} NAME_WE)
   add_test(
-    NAME ${testname}
+    NAME py${testname}
     COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-  set_tests_properties(${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+  # set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
 endforeach()
 
 if(NUMPY_FOUND)
   foreach(test ${NUMPY_TESTS})
     get_filename_component(testname ${test} NAME_WE)
     add_test(
-      NAME ${testname}
+      NAME py${testname}
       COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-    set_tests_properties(${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+    # set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
   endforeach()
 endif(NUMPY_FOUND)
 
