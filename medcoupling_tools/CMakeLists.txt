@@ -1,4 +1,5 @@
 add_subdirectory(icoco)
+add_subdirectory(remapper)
 
 if(MEDCOUPLING_ENABLE_RENUMBER)
   add_subdirectory(renumberer)

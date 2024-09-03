@@ -57,3 +57,5 @@ target_include_directories(
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(array PUBLIC "MEDCOULPING_USE_64BIT_IDS")
 endif()
+
+# install(TARGETS array EXPORT ${CMAKE_PROJECT_NAME}TargetGroup)

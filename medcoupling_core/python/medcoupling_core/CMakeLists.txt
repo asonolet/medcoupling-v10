@@ -43,7 +43,7 @@ set_source_files_properties(MEDCoupling.i PROPERTIES CPLUSPLUS ON)
 #        ${PROJECT_BINARY_DIR}/doc/MEDCoupling_doc.i swig_ready)
 # endif()
 
-set_property(SOURCE MEDCoupling.i PROPERTY SWIG_MODULE_NAME pymedcoupling)
+set_property(SOURCE MEDCoupling.i PROPERTY SWIG_MODULE_NAME medcoupling_core)
 
 if(WIN32)
   # Under Windows MEDCoupling conflicts wiht medcoupling from PyWrapping
@@ -51,20 +51,20 @@ if(WIN32)
 endif()
 
 swig_add_library(
-  pymedcoupling
+  medcoupling_core
   LANGUAGE python
   OUTPUT_DIR .
   SOURCES MEDCoupling.i)
 
 target_include_directories(
-  ${SWIG_MODULE_pymedcoupling_REAL_NAME}
+  ${SWIG_MODULE_medcoupling_core_REAL_NAME}
   PRIVATE
   "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 
-set_property(TARGET ${SWIG_MODULE_pymedcoupling_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
-set_property(TARGET ${SWIG_MODULE_pymedcoupling_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
+set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
+set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
 
-target_link_libraries(${SWIG_MODULE_pymedcoupling_REAL_NAME}
+target_link_libraries(${SWIG_MODULE_medcoupling_core_REAL_NAME}
   PUBLIC medcouplingcpp
   PRIVATE Python::Module Python::NumPy)
 
@@ -72,12 +72,12 @@ target_link_libraries(${SWIG_MODULE_pymedcoupling_REAL_NAME}
 # Installation #
 ################
 
-install(TARGETS ${SWIG_MODULE_pymedcoupling_REAL_NAME}
+install(TARGETS ${SWIG_MODULE_medcoupling_core_REAL_NAME}
   # RUNTIME_DEPENDENCIES DIRECTORIES ${MEDCOUPLING_INSTALL_LIBS}
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 
 install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/pymedcoupling.py
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/medcoupling_core.py
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 
 install(FILES vtk2medcoupling.py geom2medcoupling.py

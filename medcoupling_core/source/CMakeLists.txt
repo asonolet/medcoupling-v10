@@ -32,13 +32,7 @@ add_subdirectory(field)
 add_subdirectory(amr)
 
 
-add_library(
-  medcouplingcpp
-  $<TARGET_OBJECTS:interpkernel>
-  $<TARGET_OBJECTS:array>
-  $<TARGET_OBJECTS:mesh>
-  $<TARGET_OBJECTS:field>
-  $<TARGET_OBJECTS:amr>)
+add_library(medcouplingcpp)
 add_library(MEDCoupling::medcoupling ALIAS medcouplingcpp)
 
 set_target_properties(
@@ -50,7 +44,15 @@ if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
 endif()
 
-target_link_libraries(medcouplingcpp PUBLIC interpkernel array mesh field amr)
+target_link_libraries(medcouplingcpp PRIVATE interpkernel array mesh field amr)
+
+target_include_directories(medcouplingcpp
+  PUBLIC
+  "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medfile_api>"
+)
 
 install(
   TARGETS medcouplingcpp
