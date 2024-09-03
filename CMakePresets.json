@@ -10,7 +10,6 @@
       "name": "dev-mode",
       "hidden": true,
       "cacheVariables": {
-        "MEDCoupling_DEVELOPER_MODE": "ON",
         "CMAKE_INSTALL_RPATH_USE_LINK_PATH": "ON"
       },
       "installDir": "${sourceDir}/install/Debug"
@@ -215,7 +214,7 @@
       "configurePreset": "dev-conan",
       "configuration": "Debug",
       "targets": "install",
-      "jobs": 8
+      "jobs": 1
     }
   ]
 }

@@ -44,7 +44,7 @@ set(MEDCOUPLING_SOURCES
     MEDCouplingFieldOverTime.cxx
     MEDCouplingVoronoi.cxx)
 
-add_library(field ${MEDCOUPLING_SOURCES})
+add_library(field OBJECT ${MEDCOUPLING_SOURCES})
 target_compile_options(field PRIVATE -fPIC)
 
 if(NOT DEFINED MSVC)
@@ -58,3 +58,5 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
 )
+
+# install(TARGETS field EXPORT ${CMAKE_PROJECT_NAME}TargetGroup)

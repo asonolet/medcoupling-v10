@@ -73,6 +73,7 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medfile_api>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/rempper/python/para_remapper>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/icoco/python>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/remapper/python/sequential>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/renumberer/python>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/partitioner/python>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/shape_recognizer/python>"

@@ -19,37 +19,15 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
+find_package(cppunit REQUIRED)
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel)
 
-set(TestMEDCoupling_SOURCES
-  MEDCouplingBasicsTestInterp.cxx
-  TestMEDCoupling.cxx
-  MEDCouplingBasicsTest0.cxx
-  MEDCouplingBasicsTest1.cxx
-  MEDCouplingBasicsTest2.cxx
-  MEDCouplingBasicsTest3.cxx
-  MEDCouplingBasicsTest4.cxx
-  MEDCouplingBasicsTest5.cxx)
-
 set(TestMEDCouplingRemapper_SOURCES
   TestMEDCouplingRemapper.cxx
-  MEDCouplingRemapperTest.cxx
-  MEDCouplingBasicsTest0.cxx)
-
-set(TestMEDCouplingExamples_SOURCES MEDCouplingExamplesTest.cxx
-  MEDCouplingBasicsTest0.cxx)
-
-# salome_generate_tests_environment(tests_env)
-
-add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
-
-target_link_libraries(TestMEDCoupling medcouplingcpp cppunit::cppunit)
-
-add_test(TestMEDCoupling TestMEDCoupling)
-
-# set_tests_properties(TestMEDCoupling PROPERTIES ENVIRONMENT "${tests_env}")
+  MEDCouplingRemapperTest.cxx)
 
 add_executable(TestMEDCouplingRemapper ${TestMEDCouplingRemapper_SOURCES})
 
@@ -59,27 +37,7 @@ add_test(TestMEDCouplingRemapper TestMEDCouplingRemapper)
 
 # set_tests_properties(TestMEDCouplingRemapper PROPERTIES ENVIRONMENT "${tests_env}")
 
-add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
-
-target_link_libraries(TestMEDCouplingExamples medcouplingcpp cppunit::cppunit)
-
-add_test(TestMEDCouplingExamples TestMEDCouplingExamples)
-
-# set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
-
-install(TARGETS TestMEDCoupling TestMEDCouplingRemapper TestMEDCouplingExamples
+install(TARGETS TestMEDCouplingRemapper
   DESTINATION ${MEDCOUPLING_INSTALL_BINS})
 
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES UnitTestsResult)
-
-# Application tests
-
-# set(TEST_INSTALL_DIRECTORY ${MEDCOUPLING_INSTALL_TESTS}/MEDCoupling)
-# install(
-#   TARGETS TestMEDCoupling TestMEDCouplingRemapper TestMEDCouplingExamples
-#   DESTINATION ${TEST_INSTALL_DIRECTORY})
-
-# install(
-#   FILES CTestTestfileInstall.cmake
-#   DESTINATION ${TEST_INSTALL_DIRECTORY}
-#   RENAME CTestTestfile.cmake)
