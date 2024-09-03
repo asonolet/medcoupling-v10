@@ -58,5 +58,3 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
 )
-
-# install(TARGETS field EXPORT ${CMAKE_PROJECT_NAME}TargetGroup)

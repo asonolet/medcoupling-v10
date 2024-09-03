@@ -61,7 +61,7 @@ if(NOT MEDCOUPLING_MICROMED)
 endif(NOT MEDCOUPLING_MICROMED)
 
 add_library(InterpKernelTestUtils ${InterpKernelTestUtils_SOURCES})
-target_link_libraries(InterpKernelTestUtils interpkernel)
+target_link_libraries(InterpKernelTestUtils PRIVATE interpkernel)
 target_include_directories(InterpKernelTestUtils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(InterpKernelTest ${InterpKernelTest_SOURCES})

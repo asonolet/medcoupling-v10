@@ -19,36 +19,35 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
-include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel)
-
 set(TestMEDCoupling_SOURCES
   MEDCouplingBasicsTestInterp.cxx
   TestMEDCoupling.cxx
-  MEDCouplingBasicsTest0.cxx
   MEDCouplingBasicsTest1.cxx
   MEDCouplingBasicsTest2.cxx
   MEDCouplingBasicsTest3.cxx
   MEDCouplingBasicsTest4.cxx
   MEDCouplingBasicsTest5.cxx)
 
-set(TestMEDCouplingExamples_SOURCES MEDCouplingExamplesTest.cxx
-  MEDCouplingBasicsTest0.cxx)
+set(TestMEDCouplingExamples_SOURCES MEDCouplingExamplesTest.cxx)
 
-# salome_generate_tests_environment(tests_env)
+set(MEDCouplingTestUtils_SOURCES MEDCouplingBasicsTest0.cxx)
+
+add_library(MEDCouplingTestUtils ${MEDCouplingTestUtils_SOURCES})
+target_include_directories(MEDCouplingTestUtils PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel>
+)
+target_link_libraries(MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
-
-target_link_libraries(TestMEDCoupling medcouplingcpp cppunit::cppunit)
+target_link_libraries(TestMEDCoupling MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCoupling TestMEDCoupling)
 
 # set_tests_properties(TestMEDCoupling PROPERTIES ENVIRONMENT "${tests_env}")
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
-
-target_link_libraries(TestMEDCouplingExamples medcouplingcpp cppunit::cppunit)
+target_link_libraries(TestMEDCouplingExamples MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCouplingExamples TestMEDCouplingExamples)
 

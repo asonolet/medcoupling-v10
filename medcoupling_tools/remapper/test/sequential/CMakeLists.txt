@@ -21,17 +21,19 @@
 
 find_package(cppunit REQUIRED)
 
-include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel)
-
 set(TestMEDCouplingRemapper_SOURCES
   TestMEDCouplingRemapper.cxx
   MEDCouplingRemapperTest.cxx)
 
 add_executable(TestMEDCouplingRemapper ${TestMEDCouplingRemapper_SOURCES})
 
-target_link_libraries(TestMEDCouplingRemapper medcouplingremapper cppunit::cppunit)
+target_include_directories(
+  TestMEDCouplingRemapper
+  PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(TestMEDCouplingRemapper medcouplingcpp medcouplingremapper InterpKernelTestUtils MEDCouplingTestUtils cppunit::cppunit)
 
 add_test(TestMEDCouplingRemapper TestMEDCouplingRemapper)
 

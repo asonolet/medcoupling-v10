@@ -22,6 +22,7 @@
 # Remapper target #
 ###################
 
+add_compile_definitions("WITH_NUMPY" "WITH_SCIPY")
 set_source_files_properties(MEDCouplingRemapper.i PROPERTIES CPLUSPLUS ON)
 if(WIN32)
   set_property(SOURCE MEDCouplingRemapper.i PROPERTY COMPILE_DEFINITIONS WIN32)
@@ -36,7 +37,9 @@ swig_add_library(
 target_include_directories(
   ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME}
   PRIVATE
-  "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
+  "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medcoupling_core>"
+)
 
 set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
 set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
