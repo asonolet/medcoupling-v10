@@ -44,4 +44,4 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/amr>"
 )
 
-target_link_library(amr PRIVATE interpkernel mesh)
+target_link_libraries(amr PRIVATE interpkernel mesh)
