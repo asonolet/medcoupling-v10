@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - dev_v10
 
   pull_request:
     branches:
