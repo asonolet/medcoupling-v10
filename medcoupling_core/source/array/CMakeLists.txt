@@ -50,9 +50,9 @@ target_include_directories(
   array
   PUBLIC
   "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>" # TODO: remove
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/array>"
 )
+target_link_libraries(array PRIVATE interpkernel)
 
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(array PUBLIC "MEDCOULPING_USE_64BIT_IDS")

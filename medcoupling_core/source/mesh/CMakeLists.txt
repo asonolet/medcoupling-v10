@@ -50,7 +50,7 @@ endif()
 target_include_directories(
   mesh
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/mesh>"
 )
+
+target_link_libraries(mesh PRIVATE interpkernel array)
