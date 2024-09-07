@@ -41,7 +41,7 @@ endif()
 target_include_directories(
   amr
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/amr>"
 )
+
+target_link_library(amr PRIVATE interpkernel mesh)

@@ -54,7 +54,7 @@ endif()
 target_include_directories(
   field
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medcoupling_core>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"
 )
+
+target_link_libraries(field PRIVATE interpkernel array mesh)
