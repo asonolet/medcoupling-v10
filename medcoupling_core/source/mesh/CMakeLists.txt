@@ -51,6 +51,8 @@ target_include_directories(
   mesh
   PUBLIC
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/mesh>"
+  PRIVATE
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"  # due to FieldDouble dependency
 )
 
 target_link_libraries(mesh PRIVATE interpkernel array)

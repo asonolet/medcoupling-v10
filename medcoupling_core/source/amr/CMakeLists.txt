@@ -42,6 +42,8 @@ target_include_directories(
   amr
   PUBLIC
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/amr>"
+  PRIVATE
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"  # due to FieldDouble dependency
 )
 
 target_link_libraries(amr PRIVATE interpkernel mesh)
