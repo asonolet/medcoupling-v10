@@ -57,4 +57,4 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"
 )
 
-target_link_libraries(field PRIVATE interpkernel array mesh)
+target_link_libraries(field PUBLIC mesh)

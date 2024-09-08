@@ -52,7 +52,7 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/array>"
 )
-target_link_libraries(array PRIVATE interpkernel)
+target_link_libraries(array PUBLIC interpkernel)
 
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(array PUBLIC "MEDCOULPING_USE_64BIT_IDS")
