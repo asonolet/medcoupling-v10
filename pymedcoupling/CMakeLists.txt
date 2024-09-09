@@ -109,22 +109,25 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/medcoupling.py DESTINATION ${MEDCOUPLI
 # salome_install_scripts(
 #   ${CMAKE_CURRENT_BINARY_DIR}/medcoupling.py ${MEDCOUPLING_INSTALL_PYTHON}
 #   EXTRA_DPYS "${SWIG_MODULE_medcoupling_REAL_NAME}")
-# 
-# if(MEDCOUPLING_BUILD_PY_TESTS)
-#   include(tests.set)
-# endif()
-# 
+
 # salome_generate_tests_environment(tests_env)
-# 
-# foreach(test ${BASE_TESTS})
-#   get_filename_component(testname ${test} NAME_WE)
-#   add_test(NAME ${testname} COMMAND ${PYTHON_EXECUTABLE}
-#                                     ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-#   set_tests_properties(${testname} PROPERTIES ENVIRONMENT "${tests_env}")
-# endforeach()
-# 
+
+if(BUILD_TESTING)
+  set(BASE_TESTS TestPyWrapGathered_medcoupling.py)
+
+  foreach(test ${BASE_TESTS})
+    get_filename_component(testname ${test} NAME_WE)
+    add_test(
+      NAME py${testname}
+      COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
+    set_tests_properties(
+      py${testname} PROPERTIES
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/medcoupling_core/python/medfile_api:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
+  endforeach()
+endif()
+
 # set(TEST_INSTALL_DIRECTORY ${MEDCOUPLING_INSTALL_TESTS}/PyWrapping)
-# 
+
 # install(
 #   FILES CTestTestfileInstall.cmake
 #   DESTINATION ${TEST_INSTALL_DIRECTORY}

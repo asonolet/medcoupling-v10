@@ -94,6 +94,10 @@ install(FILES vtk2medcoupling.py geom2medcoupling.py
 #                               ${CMAKE_CURRENT_BINARY_DIR}/../PyWrapping)
 # salome_generate_tests_environment(tests_env)
 
+###########
+# TESTING #
+###########
+
 set(BASE_TESTS
   MEDCouplingBasicsTest1.py
   MEDCouplingBasicsTest2.py
@@ -114,6 +118,8 @@ set(NUMPY_TESTS
   UsersGuideExamplesTest_numpy.py
 )
 
+configure_file(MEDCouplingDataForTest.py MEDCouplingDataForTest.py)
+
 set(ALL_TESTS ${BASE_TESTS} ${NUMPY_TESTS})
 
 foreach(test ${BASE_TESTS})
@@ -121,7 +127,7 @@ foreach(test ${BASE_TESTS})
   add_test(
     NAME py${testname}
     COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-  # set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+  set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
 endforeach()
 
 if(NUMPY_FOUND)
@@ -130,7 +136,7 @@ if(NUMPY_FOUND)
     add_test(
       NAME py${testname}
       COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-    # set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+    set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
   endforeach()
 endif(NUMPY_FOUND)
 

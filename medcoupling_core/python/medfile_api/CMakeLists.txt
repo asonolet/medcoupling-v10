@@ -19,10 +19,6 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
-if(MEDCOUPLING_BUILD_PY_TESTS)
-  include(tests.set)
-endif()
-
 set_source_files_properties(MEDLoader.i PROPERTIES CPLUSPLUS ON)
 
 # set(MEDLoader_SWIG_DPYS_FILES MEDLoaderCommon.i MEDLoaderTypemaps.i)
@@ -105,28 +101,57 @@ install(
     WORLD_READ
   DESTINATION ${MEDCOUPLING_INSTALL_BINS})
 
-# salome_generate_tests_environment(tests_env)
-# 
-# foreach(test ${BASE_TESTS})
-#   get_filename_component(testname ${test} NAME_WE)
-#   add_test(NAME ${testname} COMMAND ${PYTHON_EXECUTABLE}
-#                                     ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-#   set_tests_properties(${testname} PROPERTIES ENVIRONMENT "${tests_env}")
-# endforeach()
-# 
-# if(NUMPY_FOUND)
-#   # Add Remapper to the Python path:
-#   salome_accumulate_environment(
-#     PYTHONPATH NOCHECK "${CMAKE_CURRENT_BINARY_DIR}/../../MEDCoupling_Swig")
-#   salome_generate_tests_environment(tests_env)
-#   foreach(test ${NUMPY_TESTS})
-#     get_filename_component(testname ${test} NAME_WE)
-#     add_test(NAME ${testname} COMMAND ${PYTHON_EXECUTABLE}
-#                                       ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-#     set_tests_properties(${testname} PROPERTIES ENVIRONMENT "${tests_env}")
-#   endforeach()
-# endif(NUMPY_FOUND)
-# 
+###########
+# TESTING #
+###########
+
+configure_file(MEDLoaderFinalize.py MEDLoaderFinalize.py)
+
+if(BUILD_TESTING)
+
+  set(BASE_TESTS
+    MEDLoaderTest123.py
+    MEDLoaderTest4.py
+    MEDLoaderExamplesTest.py
+    UsersGuideExamplesTest_ML.py
+    MeshFormatWriterTest1.py
+    # CrackAlongTest.py
+  )
+
+  # if numpy is used
+  set(NUMPY_TESTS
+    MEDLoaderCouplingTrainingSession.py)
+
+  set(ALL_TESTS ${BASE_TESTS} ${NUMPY_TESTS})
+
+  foreach(test ${BASE_TESTS})
+    get_filename_component(testname ${test} NAME_WE)
+    add_test(
+      NAME py${testname}
+      COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
+    set_tests_properties(
+      py${testname} PROPERTIES
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+  endforeach()
+
+  if(NUMPY_FOUND)
+    # Add Remapper to the Python path:
+    # salome_accumulate_environment(
+    #   PYTHONPATH NOCHECK "${CMAKE_CURRENT_BINARY_DIR}/../../MEDCoupling_Swig")
+    # salome_generate_tests_environment(tests_env)
+    foreach(test ${NUMPY_TESTS})
+      get_filename_component(testname ${test} NAME_WE)
+      add_test(
+        NAME py${testname}
+        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
+      set_tests_properties(
+        py${testname} PROPERTIES
+        ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+    endforeach()
+  endif(NUMPY_FOUND)
+
+endif()
+
 # # Application tests
 # 
 # set(TEST_INSTALL_DIRECTORY ${MEDCOUPLING_INSTALL_TESTS}/MEDLoader_Swig)
