@@ -43,6 +43,7 @@ set_target_properties(
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
 endif()
+target_compile_options(medcouplingcpp PUBLIC -fsigned-char)
 
 target_link_libraries(medcouplingcpp PRIVATE interpkernel array mesh field amr)
 

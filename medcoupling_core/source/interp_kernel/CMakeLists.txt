@@ -70,6 +70,7 @@ set(INTERPKERNEL_SOURCES
 add_library(interpkernel OBJECT ${INTERPKERNEL_SOURCES})
 # add_library(MEDCoupling::interpkernel ALIAS interpkernel)
 target_compile_options(interpkernel PRIVATE -fPIC)
+target_compile_options(interpkernel PUBLIC -fsigned-char)
 
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(interpkernel PUBLIC "MEDCOULPING_USE_64BIT_IDS")
