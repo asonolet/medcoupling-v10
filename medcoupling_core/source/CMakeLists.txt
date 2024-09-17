@@ -54,7 +54,7 @@ target_include_directories(medcouplingcpp
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/mesh>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/amr>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medfile_api>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/polymesh>"
 )
 
 install(
@@ -67,5 +67,5 @@ install(
 # medfile_api needs to be splitten in medreader/medwriter (will go into
 # medcoupling_io) and polymesh => which is not dependant on Medfile
 if(NOT MEDCOUPLING_MICROMED)
-  add_subdirectory(medfile_api)
+  add_subdirectory(polymesh)
 endif()

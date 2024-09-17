@@ -77,7 +77,7 @@ target_compile_definitions(medloader PUBLIC MED_INT_IS_LONG)
 target_include_directories(
   medloader
   PUBLIC
-    "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/medfile_api>"
+    "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/polymesh>"
 )
 
 set_target_properties(
@@ -110,5 +110,5 @@ install(
   DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
   INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
 
-file(GLOB medloader_HEADERS "${PROJECT_SOURCE_DIR}/include/medfile_api/*")
+file(GLOB medloader_HEADERS "${PROJECT_SOURCE_DIR}/include/polymesh/*")
 install(FILES ${medloader_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
