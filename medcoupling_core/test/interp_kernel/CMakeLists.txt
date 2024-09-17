@@ -23,7 +23,7 @@
 if(MEDCOUPLING_MICROMED)
   add_definitions(-DMEDCOUPLING_MICROMED)
 else()
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../medfile_api)
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../polymesh)
 endif()
 
 set(InterpKernelTest_SOURCES
@@ -80,9 +80,11 @@ add_test(TestINTERP_KERNEL TestINTERP_KERNEL)
 # salome_generate_tests_environment(tests_env)
 # set_tests_properties(TestINTERP_KERNEL PROPERTIES ENVIRONMENT "${tests_env}")
 
+# TODO: supprimer cette installation
 install(TARGETS TestINTERP_KERNEL DESTINATION ${MEDCOUPLING_INSTALL_BINS})
 install(TARGETS InterpKernelTest DESTINATION ${MEDCOUPLING_INSTALL_LIBS})
 install(TARGETS InterpKernelTestUtils DESTINATION ${MEDCOUPLING_INSTALL_LIBS})
+
 # install(FILES CppUnitTest.hxx InterpKernelTestExport.hxx
 #               TestInterpKernelUtils.hxx
 #         DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})

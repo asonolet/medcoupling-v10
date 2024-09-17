@@ -44,8 +44,6 @@ target_link_libraries(TestMEDCoupling MEDCouplingTestUtils medcouplingcpp cppuni
 
 add_test(TestMEDCoupling TestMEDCoupling)
 
-# set_tests_properties(TestMEDCoupling PROPERTIES ENVIRONMENT "${tests_env}")
-
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
 target_link_libraries(TestMEDCouplingExamples MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 

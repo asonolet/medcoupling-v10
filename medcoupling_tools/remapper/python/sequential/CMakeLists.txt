@@ -81,5 +81,5 @@ foreach(test ${BASE_TESTS})
   add_test(
     NAME py${testname}
     COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-  set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/pymedcoupling:${PROJECT_BINARY_DIR}/medcoupling_core/python/medfile_api:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
+  set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/pymedcoupling:${PROJECT_BINARY_DIR}/medcoupling_core/python/polymesh:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
 endforeach()

@@ -5,5 +5,5 @@ add_compile_definitions("WITH_NUMPY" "WITH_SCIPY")
 add_subdirectory(medcoupling_core)
 
 if(NOT MEDCOUPLING_MICROMED)
-  add_subdirectory(medfile_api)
+  add_subdirectory(polymesh)
 endif()

@@ -70,7 +70,7 @@ target_include_directories(
   PRIVATE
   "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medcoupling_core>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medfile_api>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/polymesh>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/rempper/python/para_remapper>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/icoco/python>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_tools/remapper/python/sequential>"
@@ -132,7 +132,7 @@ if(BUILD_TESTING)
       COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
     set_tests_properties(
       py${testname} PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/medcoupling_core/python/medfile_api:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/medcoupling_core/python/polymesh:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
   endforeach()
 endif()
 
