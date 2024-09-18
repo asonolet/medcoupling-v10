@@ -23,6 +23,11 @@
 %module medcoupling_core
 #endif
 
+#define MEDCOUPLINGREMAPPER_EXPORT
+#define INTERPKERNEL_EXPORT
+#define MEDCOUPLING_EXPORT
+#define MEDLOADER_EXPORT
+
 %include "MEDCouplingCommon.i"
 
 %pythoncode %{
