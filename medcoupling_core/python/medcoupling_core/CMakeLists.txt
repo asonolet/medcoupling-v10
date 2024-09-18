@@ -21,7 +21,7 @@ if(NOT DEFINED MSVC)
   add_definitions(-Wsign-compare -Wconversion)
 endif()
 
-set_source_files_properties(MEDCoupling.i PROPERTIES CPLUSPLUS ON)
+set_source_files_properties(medcoupling_core.i PROPERTIES CPLUSPLUS ON)
 
 # set(MC_pyTestFiles ${ALL_TESTS} MEDCouplingDataForTest.py)
 
@@ -39,18 +39,18 @@ set_source_files_properties(MEDCoupling.i PROPERTIES CPLUSPLUS ON)
 #        ${PROJECT_BINARY_DIR}/doc/MEDCoupling_doc.i swig_ready)
 # endif()
 
-set_property(SOURCE MEDCoupling.i PROPERTY SWIG_MODULE_NAME medcoupling_core)
+set_property(SOURCE medcoupling_core.i PROPERTY SWIG_MODULE_NAME medcoupling_core)
 
 if(WIN32)
   # Under Windows MEDCoupling conflicts wiht medcoupling from PyWrapping
-  set_property(SOURCE MEDCoupling.i PROPERTY COMPILE_DEFINITIONS WIN32)
+  set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
 endif()
 
 swig_add_library(
   medcoupling_core
   LANGUAGE python
   OUTPUT_DIR .
-  SOURCES MEDCoupling.i)
+  SOURCES medcoupling_core.i)
 
 target_include_directories(
   ${SWIG_MODULE_medcoupling_core_REAL_NAME}
