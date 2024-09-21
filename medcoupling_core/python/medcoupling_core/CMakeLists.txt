@@ -21,6 +21,8 @@ if(NOT DEFINED MSVC)
   add_definitions(-Wsign-compare -Wconversion)
 endif()
 
+add_compile_definitions(MEDCOUPLING_SWIG4_COMPAT)
+
 set_source_files_properties(medcoupling_core.i PROPERTIES CPLUSPLUS ON)
 
 # set(MC_pyTestFiles ${ALL_TESTS} MEDCouplingDataForTest.py)
