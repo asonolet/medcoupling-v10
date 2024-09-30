@@ -206,6 +206,20 @@
       "name": "dev-conan",
       "binaryDir": "${sourceDir}/build/dev-conan",
       "inherits": ["dev-linux", "conan"]
+    },
+    {
+      "name": "rel-linux",
+      "binaryDir": "${sourceDir}/build/rel-linux",
+      "installDir": "${sourceDir}/install/Release",
+      "inherits": "ci-linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "rel-conan",
+      "binaryDir": "${sourceDir}/build/rel-conan",
+      "inherits": ["rel-linux", "conan"]
     }
   ],
   "buildPresets": [
@@ -215,6 +229,13 @@
       "configuration": "Debug",
       "targets": "install",
       "jobs": 8
+    },
+    {
+      "name": "rel-conan",
+      "configurePreset": "rel-conan",
+      "configuration": "Release",
+      "targets": "install",
+      "jobs": 8
     }
   ],
   "testPresets": [
@@ -222,6 +243,21 @@
       "name": "dev-conan",
       "configurePreset": "dev-conan",
       "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "environment": {
+        "MEDCOUPLING_RESOURCE_DIR": "$env{PWD}/resources"
+      },
+      "execution": {
+        "jobs": 8,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "rel-conan",
+      "configurePreset": "rel-conan",
+      "configuration": "Release",
       "output": {
         "outputOnFailure": true
       },
