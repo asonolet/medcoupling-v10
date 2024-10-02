@@ -44,19 +44,15 @@ jobs:
 
     - name: Configure
       shell: pwsh
-      run: cmake "--preset=ci-$("${{ matrix.os }}".split("-")[0])"
-        -D BUILD_SHARED_LIBS=YES
+      run: cmake --preset=dev-conan
 
     - name: Setup PATH
       if: matrix.os == 'windows-2022'
       run: Add-Content "$env:GITHUB_PATH" "$(Get-Location)\build\Release"
 
     - name: Build
-      run: cmake --build build -j 2
-
-    - name: Install
-      run: cmake --install build
+      run: cmake --build --preset dev-conan -j 2
 
     - name: Test
       working-directory: build
-      run: ctest --output-on-failure --no-tests=error -C Release -j 2
+      run: ctest --preset dev-conan -j 2
