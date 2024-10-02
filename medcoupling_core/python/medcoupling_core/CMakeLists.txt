@@ -23,7 +23,10 @@ endif()
 
 add_compile_definitions(MEDCOUPLING_SWIG4_COMPAT)
 
-set_source_files_properties(medcoupling_core.i PROPERTIES CPLUSPLUS ON)
+set_source_files_properties(
+  medcoupling_core.i PROPERTIES
+  CPLUSPLUS ON
+  SWIG_MODULE_NAME medcoupling_core)
 
 # set(MC_pyTestFiles ${ALL_TESTS} MEDCouplingDataForTest.py)
 
@@ -41,8 +44,6 @@ set_source_files_properties(medcoupling_core.i PROPERTIES CPLUSPLUS ON)
 #        ${PROJECT_BINARY_DIR}/doc/MEDCoupling_doc.i swig_ready)
 # endif()
 
-set_property(SOURCE medcoupling_core.i PROPERTY SWIG_MODULE_NAME medcoupling_core)
-
 if(WIN32)
   # Under Windows MEDCoupling conflicts wiht medcoupling from PyWrapping
   set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
@@ -51,6 +52,7 @@ endif()
 swig_add_library(
   medcoupling_core
   LANGUAGE python
+  TYPE MODULE
   OUTPUT_DIR .
   SOURCES medcoupling_core.i)
 
