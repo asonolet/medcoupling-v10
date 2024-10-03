@@ -20,7 +20,13 @@
 # Author : Anthony Geay (EDF R&D)
 
 add_compile_definitions("WITH_NUMPY" "WITH_SCIPY")
-set_source_files_properties(medcoupling.i PROPERTIES CPLUSPLUS ON)
+
+set_source_files_properties(
+  medcoupling.i PROPERTIES
+  CPLUSPLUS ON
+  COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
+)
+
 if(WIN32)
   set_property(SOURCE medcoupling.i PROPERTY COMPILE_DEFINITIONS WIN32)
 endif()

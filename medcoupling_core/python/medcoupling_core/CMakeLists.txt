@@ -49,9 +49,6 @@ if(WIN32)
   set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
 endif()
 
-set(THREADS_PREFER_PTHREAD_FLAG TRUE)
-find_package(Threads)
-
 swig_add_library(
   medcoupling_core
   LANGUAGE python
@@ -68,7 +65,8 @@ set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY SWIG_USE_
 set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
 
 target_link_libraries(${SWIG_MODULE_medcoupling_core_REAL_NAME}
-  PUBLIC medcouplingcpp Python::Module Python::NumPy Threads::Threads ${CMAKE_DL_LIBS})
+  PUBLIC medcouplingcpp
+  PRIVATE Python::Module Python::NumPy)
 
 ################
 # Installation #
