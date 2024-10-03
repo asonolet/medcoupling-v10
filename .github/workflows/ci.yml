@@ -54,5 +54,4 @@ jobs:
       run: cmake --build --preset dev-conan -j 2
 
     - name: Test
-      working-directory: build
       run: ctest --preset dev-conan -j 2
