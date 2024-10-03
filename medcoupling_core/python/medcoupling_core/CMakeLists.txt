@@ -21,12 +21,12 @@ if(NOT DEFINED MSVC)
   add_definitions(-Wsign-compare -Wconversion)
 endif()
 
-add_compile_definitions(MEDCOUPLING_SWIG4_COMPAT)
-
 set_source_files_properties(
   medcoupling_core.i PROPERTIES
   CPLUSPLUS ON
-  SWIG_MODULE_NAME medcoupling_core)
+  SWIG_MODULE_NAME medcoupling_core
+  COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
+)
 
 # set(MC_pyTestFiles ${ALL_TESTS} MEDCouplingDataForTest.py)
 
@@ -49,6 +49,9 @@ if(WIN32)
   set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
 endif()
 
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads)
+
 swig_add_library(
   medcoupling_core
   LANGUAGE python
@@ -65,8 +68,7 @@ set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY SWIG_USE_
 set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
 
 target_link_libraries(${SWIG_MODULE_medcoupling_core_REAL_NAME}
-  PUBLIC medcouplingcpp
-  PRIVATE Python::Module Python::NumPy)
+  PUBLIC medcouplingcpp Python::Module Python::NumPy Threads::Threads ${CMAKE_DL_LIBS})
 
 ################
 # Installation #
