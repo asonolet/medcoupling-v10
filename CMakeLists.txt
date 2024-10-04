@@ -214,6 +214,9 @@ endif()
 
 enable_testing()
 
+if(WIN32)
+  add_compile_definitions(_USE_MATH_DEFINES)
+endif()
 add_subdirectory(medcoupling_core)
 
 # TODO: move all this logic specific to shape recogn to the shape recogn CMakeLists.txt
