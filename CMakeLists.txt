@@ -194,6 +194,9 @@ endif()
 
 enable_testing()
 
+if(WIN32)
+  add_compile_definitions(_USE_MATH_DEFINES)
+endif()
 add_subdirectory(medcoupling_core)
 
 if(NOT MEDCOUPLING_MICROMED)
