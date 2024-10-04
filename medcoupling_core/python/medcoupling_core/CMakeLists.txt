@@ -56,6 +56,10 @@ swig_add_library(
   OUTPUT_DIR .
   SOURCES medcoupling_core.i)
 
+if(WIN32)
+  target_compile_options(${SWIG_MODULE_medcoupling_core_REAL_NAME} PRIVATE /bigobj)
+endif()
+
 target_include_directories(
   ${SWIG_MODULE_medcoupling_core_REAL_NAME}
   PRIVATE
