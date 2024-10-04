@@ -7,26 +7,14 @@
   },
   "configurePresets": [
     {
-      "name": "dev-mode",
+      "name": "common",
+      "description": "This preset makes sure the project actually builds with at least the specified standard",
       "hidden": true,
       "cacheVariables": {
+        "CMAKE_CXX_EXTENSIONS": "OFF",
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_INSTALL_RPATH_USE_LINK_PATH": "ON"
-      },
-      "installDir": "${sourceDir}/install/Debug"
-    },
-    {
-      "name": "medint-long",
-      "hidden": true,
-      "cacheVariables": {
-        "MEDCOUPLING_USE_64BIT_IDS": "ON"
-      }
-    },
-    {
-      "name": "conan",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/conan_toolchain.cmake",
-        "CMAKE_POLICY_DEFAULT_CMP0091": "NEW"
       }
     },
     {
@@ -41,16 +29,6 @@
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--header-filter=^${sourceDir}/"
-      }
-    },
-    {
-      "name": "ci-std",
-      "description": "This preset makes sure the project actually builds with at least the specified standard",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_CXX_EXTENSIONS": "OFF",
-        "CMAKE_CXX_STANDARD": "17",
-        "CMAKE_CXX_STANDARD_REQUIRED": "ON"
       }
     },
     {
@@ -89,28 +67,44 @@
       }
     },
     {
-      "name": "ci-linux",
-      "inherits": ["flags-gcc-clang", "ci-std"],
+      "name": "linux",
+      "inherits": ["flags-gcc-clang", "common"],
       "generator": "Unix Makefiles",
       "hidden": true
     },
     {
-      "name": "ci-darwin",
-      "inherits": ["flags-appleclang", "ci-std"],
+      "name": "darwin",
+      "inherits": ["flags-appleclang", "common"],
       "generator": "Xcode",
       "hidden": true
     },
     {
-      "name": "ci-win64",
-      "inherits": ["flags-msvc", "ci-std"],
+      "name": "win64",
+      "inherits": ["flags-msvc", "common"],
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "hidden": true
     },
     {
+      "name": "dev-linux",
+      "inherits": "linux",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "rel-linux",
+      "inherits": "linux",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
       "name": "coverage-linux",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": "ci-linux",
+      "inherits": "linux",
       "hidden": true,
       "cacheVariables": {
         "ENABLE_COVERAGE": "ON",
@@ -118,20 +112,14 @@
         "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions",
         "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
         "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage",
-        "CMAKE_MAP_IMPORTED_CONFIG_COVERAGE": "Coverage;RelWithDebInfo;Release;Debug;"
-      }
-    },
-    {
-      "name": "ci-coverage",
-      "inherits": ["coverage-linux", "dev-mode", "conan"],
-      "cacheVariables": {
+        "CMAKE_MAP_IMPORTED_CONFIG_COVERAGE": "Coverage;RelWithDebInfo;Release;Debug;",
         "COVERAGE_HTML_COMMAND": ""
       }
     },
     {
-      "name": "ci-sanitize",
-      "binaryDir": "${sourceDir}/build/sanitize",
-      "inherits": ["ci-linux", "dev-mode", "conan"],
+      "name": "sanitize-linux",
+      "hidden": true,
+      "inherits": "linux",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-U_FORTIFY_SOURCE -O2 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-common",
@@ -139,15 +127,7 @@
       }
     },
     {
-      "name": "ci-build",
-      "binaryDir": "${sourceDir}/build",
-      "cacheVariables": {
-          "MEDCOUPLING_USE_MPI": false
-      },
-      "hidden": true
-    },
-    {
-      "name": "ci-multi-config",
+      "name": "multi-config-release",
       "description": "Speed up multi-config generators by generating only one configuration instead of the defaults",
       "hidden": true,
       "cacheVariables": {
@@ -155,116 +135,175 @@
       }
     },
     {
+      "name": "med-opt",
+      "hidden": true,
+      "cacheVariables": {
+        "MEDCOUPLING_USE_64BIT_IDS": "ON",
+        "MEDCOUPLING_USE_MPI": false
+      }
+    },
+    {
+      "name": "conan",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/conan_toolchain.cmake",
+        "CMAKE_POLICY_DEFAULT_CMP0091": "NEW"
+      }
+    },
+    {
+      "name": "ci-coverage",
+      "binaryDir": "${sourceDir}/build/coverage",
+      "installDir": "${sourceDir}/install/coverage",
+      "inherits": ["coverage-linux", "conan", "med-opt"]
+    },
+    {
+      "name": "ci-sanitize",
+      "binaryDir": "${sourceDir}/build/sanitize",
+      "installDir": "${sourceDir}/install/sanitize",
+      "inherits": ["sanitize-linux", "med-opt", "conan"]
+    },
+    {
       "name": "ci-macos",
-      "inherits": ["ci-build", "ci-darwin", "dev-mode", "ci-multi-config", "conan"]
+      "binaryDir": "${sourceDir}/build/macos",
+      "installDir": "${sourceDir}/install/macos",
+      "inherits": ["darwin", "med-opt", "multi-config-release", "conan"]
     },
     {
       "name": "ci-ubuntu",
-      "inherits": ["ci-build", "ci-linux", "conan", "dev-mode"]
+      "binaryDir": "${sourceDir}/build/linux",
+      "installDir": "${sourceDir}/install/linux",
+      "inherits": ["rel-linux", "conan", "med-opt"]
     },
     {
       "name": "ci-windows",
-      "inherits": ["ci-build", "ci-win64", "dev-mode", "ci-multi-config", "conan"]
+      "binaryDir": "${sourceDir}/build/windows",
+      "installDir": "${sourceDir}/install/windows",
+      "inherits": ["win64", "med-opt", "multi-config-release", "conan"]
     },
     {
-      "name": "dev-common",
-      "hidden": true,
-      "inherits": ["dev-mode", "medint-long"]
+      "name": "dev",
+      "binaryDir": "${sourceDir}/build/Debug",
+      "installDir": "${sourceDir}/install/Debug",
+      "inherits": ["dev-linux", "conan", "med-opt"]
     },
     {
-      "name": "dev-linux",
-      "binaryDir": "${sourceDir}/build/dev-linux",
-      "inherits": ["dev-common", "ci-linux"],
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
-    },
-    {
-      "name": "dev-darwin",
-      "binaryDir": "${sourceDir}/build/dev-darwin",
-      "inherits": ["dev-common", "ci-darwin"]
-    },
-    {
-      "name": "dev-win64",
-      "binaryDir": "${sourceDir}/build/dev-win64",
-      "inherits": ["dev-common", "ci-win64"],
-      "environment": {
-        "UseMultiToolTask": "true",
-        "EnforceProcessCountAcrossBuilds": "true"
-      }
-    },
-    {
-      "name": "dev-coverage",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": ["dev-mode", "coverage-linux", "conan"]
-    },
-    {
-      "name": "dev-conan",
-      "binaryDir": "${sourceDir}/build/dev-conan",
-      "inherits": ["dev-linux", "conan"]
-    },
-    {
-      "name": "rel-linux",
-      "binaryDir": "${sourceDir}/build/rel-linux",
+      "name": "rel",
+      "binaryDir": "${sourceDir}/build/Release",
       "installDir": "${sourceDir}/install/Release",
-      "inherits": "ci-linux",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    },
-    {
-      "name": "rel-conan",
-      "binaryDir": "${sourceDir}/build/rel-conan",
-      "inherits": ["rel-linux", "conan"]
+      "inherits": ["rel-linux", "conan", "med-opt"]
     }
   ],
   "buildPresets": [
     {
-      "name": "dev-conan",
-      "configurePreset": "dev-conan",
-      "configuration": "Debug",
+      "name": "local-build",
+      "hidden": true,
       "targets": "install",
       "jobs": 8
     },
     {
-      "name": "rel-conan",
-      "configurePreset": "rel-conan",
-      "configuration": "Release",
-      "targets": "install",
-      "jobs": 8
+      "name": "ci-build",
+      "hidden": true,
+      "jobs": 2
+    },
+    {
+      "name": "dev",
+      "inherits": "local-build",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "rel",
+      "inherits": "local-build",
+      "configurePreset": "rel"
+    },
+    {
+      "name": "ci-ubuntu",
+      "inherits": "ci-build",
+      "configurePreset": "ci-ubuntu"
+    },
+    {
+      "name": "ci-windows",
+      "inherits": "ci-build",
+      "configurePreset": "ci-windows"
+    },
+    {
+      "name": "ci-macos",
+      "inherits": "ci-build",
+      "configurePreset": "ci-macos"
+    },
+    {
+      "name": "ci-sanitize",
+      "inherits": "ci-build",
+      "configurePreset": "ci-sanitize"
+    },
+    {
+      "name": "ci-coverage",
+      "inherits": "ci-build",
+      "configurePreset": "ci-coverage"
     }
   ],
   "testPresets": [
     {
-      "name": "dev-conan",
-      "configurePreset": "dev-conan",
-      "configuration": "Debug",
+      "name": "common-test",
+      "hidden": true,
       "output": {
         "outputOnFailure": true
       },
       "environment": {
         "MEDCOUPLING_RESOURCE_DIR": "$env{PWD}/resources"
-      },
+      }
+    },
+    {
+      "name": "ci-test",
+      "hidden": true,
+      "inherits": "common-test",
+      "execution": {
+        "jobs": 2,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "local-test",
+      "hidden": true,
+      "inherits": "common-test",
       "execution": {
         "jobs": 8,
         "noTestsAction": "error"
       }
     },
     {
-      "name": "rel-conan",
-      "configurePreset": "rel-conan",
-      "configuration": "Release",
-      "output": {
-        "outputOnFailure": true
-      },
-      "environment": {
-        "MEDCOUPLING_RESOURCE_DIR": "$env{PWD}/resources"
-      },
-      "execution": {
-        "jobs": 8,
-        "noTestsAction": "error"
-      }
+      "name": "dev",
+      "inherits": "local-test",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "rel",
+      "inherits": "local-test",
+      "configurePreset": "rel"
+    },
+    {
+      "name": "ci-ubuntu",
+      "inherits": "ci-test",
+      "configurePreset": "ci-ubuntu"
+    },
+    {
+      "name": "ci-windows",
+      "inherits": "ci-test",
+      "configurePreset": "ci-windows"
+    },
+    {
+      "name": "ci-macos",
+      "inherits": "ci-test",
+      "configurePreset": "ci-macos"
+    },
+    {
+      "name": "ci-sanitize",
+      "inherits": "ci-test",
+      "configurePreset": "ci-sanitize"
+    },
+    {
+      "name": "ci-coverage",
+      "inherits": "ci-test",
+      "configurePreset": "ci-coverage"
     }
   ]
 }
