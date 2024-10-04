@@ -36,19 +36,9 @@ jobs:
       shell: bash
       run: bash < .github/scripts/conan-ci-setup.sh
 
-    - name: Setup MultiToolTask
-      if: matrix.os == 'windows-2022'
-      run: |
-        Add-Content "$env:GITHUB_ENV" 'UseMultiToolTask=true'
-        Add-Content "$env:GITHUB_ENV" 'EnforceProcessCountAcrossBuilds=true'
-
     - name: Configure
       shell: pwsh
       run: cmake "--preset=ci-$("${{ matrix.os }}".split("-")[0])"
-
-    - name: Setup PATH
-      if: matrix.os == 'windows-2022'
-      run: Add-Content "$env:GITHUB_PATH" "$(Get-Location)\build\Release"
 
     - name: Build
       shell: pwsh
