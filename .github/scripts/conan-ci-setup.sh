@@ -7,6 +7,7 @@ set -xeu
 pip3 install conan
 pip3 install "numpy<2"
 pip3 install scipy
+pip3 install cmake
 
 conan profile detect -f
 
