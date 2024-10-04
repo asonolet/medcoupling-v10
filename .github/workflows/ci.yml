@@ -52,7 +52,7 @@ jobs:
 
     - name: Build
       shell: pwsh
-      run: cmake "--build --preset=ci-$("${{ matrix.os }}".split("-")[0])"
+      run: cmake --build --preset="ci-$("${{ matrix.os }}".split("-")[0])"
 
     - name: Test
       shell: pwsh
