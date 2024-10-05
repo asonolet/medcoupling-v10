@@ -66,16 +66,15 @@ target_include_directories(InterpKernelTestUtils PUBLIC ${CMAKE_CURRENT_SOURCE_D
 
 add_library(InterpKernelTest ${InterpKernelTest_SOURCES})
 
-set(InterpKernelTest_LIBS medcouplingcpp cppunit::cppunit)
+set(InterpKernelTest_LIBS medcouplingcpp cppunit::cppunit InterpKernelTestUtils)
 if(NOT MEDCOUPLING_MICROMED)
   set(InterpKernelTest_LIBS medloader ${InterpKernelTest_LIBS})
 endif(NOT MEDCOUPLING_MICROMED)
-target_link_libraries(InterpKernelTest ${InterpKernelTest_LIBS}
-                      InterpKernelTestUtils)
+target_link_libraries(InterpKernelTest PUBLIC ${InterpKernelTest_LIBS})
 
 add_executable(TestINTERP_KERNEL ${TestINTERP_KERNEL_SOURCES})
-target_link_libraries(TestINTERP_KERNEL InterpKernelTest cppunit::cppunit)
-add_test(TestINTERP_KERNEL TestINTERP_KERNEL)
+target_link_libraries(TestINTERP_KERNEL InterpKernelTest)
+add_test(TestINTERP_KERNEL TestINTERP_KERNEL -V)
 
 # salome_generate_tests_environment(tests_env)
 # set_tests_properties(TestINTERP_KERNEL PROPERTIES ENVIRONMENT "${tests_env}")
