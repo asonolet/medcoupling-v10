@@ -90,7 +90,7 @@
     {
       "name": "win64",
       "inherits": ["flags-msvc", "common"],
-      "generator": "Visual Studio 17 2022",
+      "generator": "Visual Studio 16 2019",
       "architecture": "x64",
       "hidden": true
     },
