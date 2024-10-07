@@ -19,4 +19,4 @@
 
 #include "InterpKernelDenseMatrix.txx"
 
-template class INTERPKERNEL_EXPORT INTERP_KERNEL::DenseMatrixT<double>;
+extern template class INTERPKERNEL_EXPORT INTERP_KERNEL::DenseMatrixT<double>;
