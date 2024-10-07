@@ -259,7 +259,7 @@
         "outputOnFailure": true
       },
       "environment": {
-        "MEDCOUPLING_RESOURCE_DIR": "$env{PWD}/resources"
+        "MEDCOUPLING_RESOURCE_DIR": "${sourceDir}/resources"
       }
     },
     {
