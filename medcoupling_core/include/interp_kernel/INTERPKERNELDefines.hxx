@@ -22,7 +22,7 @@
 
 //export symbols
 #ifdef WIN32
-# if defined INTERPKERNEL_EXPORTS || defined interpkernel_EXPORTS
+# if defined MEDCOUPLING_EXPORTS || defined medcoupling_EXPORTS
 #  define INTERPKERNEL_EXPORT __declspec(dllexport)
 # else
 #  define INTERPKERNEL_EXPORT __declspec(dllimport)
