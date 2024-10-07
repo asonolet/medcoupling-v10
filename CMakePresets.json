@@ -217,7 +217,7 @@
       "name": "ci-build",
       "hidden": true,
       "configuration": "Release",
-      "jobs": 2
+      "jobs": 4
     },
     {
       "name": "dev",
@@ -271,7 +271,7 @@
       "hidden": true,
       "inherits": "common-test",
       "execution": {
-        "jobs": 2,
+        "jobs": 4,
         "noTestsAction": "error"
       }
     },
