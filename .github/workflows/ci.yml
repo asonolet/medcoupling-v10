@@ -46,4 +46,4 @@ jobs:
 
     - name: Test
       shell: pwsh
-      run: ctest "--preset=ci-$("${{ matrix.os }}".split("-")[0])" ; cd build && find . -name=UnitTestsResult | xargs cat
+      run: ctest "--preset=ci-$("${{ matrix.os }}".split("-")[0])" ; cd build && find . -name UnitTestsResult | xargs cat
