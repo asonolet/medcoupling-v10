@@ -40,6 +40,7 @@ option(MEDCOUPLING_ENABLE_PYTHON "Build PYTHON bindings." ON)
 option(MEDCOUPLING_ENABLE_PARTITIONER "Build MEDPartitioner." OFF)
 option(MEDCOUPLING_ENABLE_RENUMBER "Build Renumber." OFF)
 option(MEDCOUPLING_ENABLE_SHAPERECOGN "Build Shape Recognition module." OFF)
+option(MEDCOUPLING_ENABLE_STAT "Build stat module." OFF)
 option(
   MEDCOUPLING_WITH_FILE_EXAMPLES
   "Install examples of files containing meshes and fields of different formats."
