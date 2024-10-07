@@ -27,7 +27,6 @@
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/TestRunner.h>
-#include <cppunit/ui/text/TestRunner.h>
 #include <stdexcept>
 
 #include <iostream>
@@ -72,7 +71,7 @@ int main(int argc, char* argv[])
 
   // ---  Adds the test to the list of test to run
 
-  CPPUNIT_NS::TextUi::TestRunner runner;
+  CPPUNIT_NS::TestRunner runner;
   runner.addTest( suite );
   runner.run( controller);
 
