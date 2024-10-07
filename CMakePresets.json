@@ -67,13 +67,17 @@
       }
     },
     {
-      "name": "flags-msvc",
+      "name": "flags-msvc-soft",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "/permissive- /volatile:iso /Zc:inline /Zc:preprocessor /Zc:enumTypes /Zc:lambda /Zc:__cplusplus /Zc:externConstexpr /Zc:throwingNew /EHsc",
         "CMAKE_EXE_LINKER_FLAGS": "/machine:x64 /guard:cf",
         "CMAKE_SHARED_LINKER_FLAGS": "/machine:x64 /guard:cf"
       }
+    },
+    {
+      "name": "flags-msvc",
+      "hidden": true
     },
     {
       "name": "linux",
