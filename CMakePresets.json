@@ -112,6 +112,14 @@
       }
     },
     {
+      "name": "relwdeb-linux",
+      "inherits": "linux",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
       "name": "rel-linux",
       "inherits": "linux",
       "hidden": true,
@@ -204,6 +212,12 @@
       "inherits": ["dev-linux", "conan", "med-opt"]
     },
     {
+      "name": "relwdeb",
+      "binaryDir": "${sourceDir}/build/RelWithDebInfo",
+      "installDir": "${sourceDir}/install/RelWithDebInfo",
+      "inherits": ["relwdeb-linux", "conan", "med-opt"]
+    },
+    {
       "name": "rel",
       "binaryDir": "${sourceDir}/build/Release",
       "installDir": "${sourceDir}/install/Release",
@@ -227,6 +241,11 @@
       "name": "dev",
       "inherits": "local-build",
       "configurePreset": "dev"
+    },
+    {
+      "name": "relwdeb",
+      "inherits": "local-build",
+      "configurePreset": "relwdeb"
     },
     {
       "name": "rel",
@@ -292,6 +311,11 @@
       "name": "dev",
       "inherits": "local-test",
       "configurePreset": "dev"
+    },
+    {
+      "name": "relwdeb",
+      "inherits": "local-test",
+      "configurePreset": "relwdeb"
     },
     {
       "name": "rel",
