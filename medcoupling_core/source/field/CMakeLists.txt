@@ -46,8 +46,7 @@ set(MEDCOUPLING_SOURCES
 
 add_library(field OBJECT ${MEDCOUPLING_SOURCES})
 if(NOT WIN32)
-  target_compile_options(array PRIVATE -fPIC)
-  target_compile_definitions(array PUBLIC "_POSIX_MAPPED_FILES")
+  target_compile_options(field PRIVATE -fPIC)
 endif()
 
 if(NOT DEFINED MSVC)

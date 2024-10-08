@@ -83,7 +83,7 @@ else()
 endif()
 
 if(NOT DEFINED MSVC)
-  target_compile_options(array PRIVATE -Wsign-compare -Wconversion)
+  target_compile_options(interpkernel PRIVATE -Wsign-compare -Wconversion)
 endif()
 
 if(MEDCOUPLING_USE_64BIT_IDS)
