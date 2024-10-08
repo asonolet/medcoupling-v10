@@ -39,6 +39,6 @@
 # define INTERPKERNEL_EXPORT
 #endif 
 
-#pragma message(VAR_NAME_VALUE(INTERPKERNEL_EXPORTS))
+#pragma message(VAR_NAME_VALUE(INTERPKERNEL_EXPORT))
 
 #endif
