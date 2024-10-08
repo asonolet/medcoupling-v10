@@ -1462,57 +1462,57 @@ class MEDCouplingBasicsTest7(unittest.TestCase):
       """
       EDF30179 : Core algo for family field linked to fusion of entities
       """
-      d = DataArrayInt([2,2,2,2,2,3,3,3,3,1,1,1,1,1,1]) # 5 x 2 , 4 x 3, 6 x 1
+      d = mc.DataArrayInt([2,2,2,2,2,3,3,3,3,1,1,1,1,1,1]) # 5 x 2 , 4 x 3, 6 x 1
 
-      c = DataArrayInt([]) ; ci = DataArrayInt([0])
+      c = mc.DataArrayInt([]) ; ci = mc.DataArrayInt([0])
       #### Case 0 : simplest
       assert( ci.deltaShiftIndex().empty() ) # EDF30179 : extension of deltaShiftIndex to single elt
       a,b,f = d.forThisAsPartitionBuildReduction(c,ci)
       assert( a.isEqual( d ) )
       assert( b.empty() )
-      assert( f.isEqual(DataArrayInt([0])) )  
+      assert( f.isEqual(mc.DataArrayInt([0])) )  
       #### Case 1 : single fusion
-      c = DataArrayInt([3,6]) ; ci = DataArrayInt([0,2])
+      c = mc.DataArrayInt([3,6]) ; ci = mc.DataArrayInt([0,2])
       a,b,f = d.forThisAsPartitionBuildReduction(c,ci)
-      assert( a.isEqual( DataArrayInt([2,2,2,4,2,3,3,3,1,1,1,1,1,1]) ) )
-      assert( b.isEqual( DataArrayInt([4,2,3]) ) )
-      assert( f.isEqual( DataArrayInt([0,3]) ) )  
+      assert( a.isEqual( mc.DataArrayInt([2,2,2,4,2,3,3,3,1,1,1,1,1,1]) ) )
+      assert( b.isEqual( mc.DataArrayInt([4,2,3]) ) )
+      assert( f.isEqual( mc.DataArrayInt([0,3]) ) )  
       #### Case 2 : single fusion - same partition id
-      c = DataArrayInt([6,7]) ; ci = DataArrayInt([0,2])
+      c = mc.DataArrayInt([6,7]) ; ci = mc.DataArrayInt([0,2])
       a,b,f = d.forThisAsPartitionBuildReduction(c,ci)
-      assert( a.isEqual( DataArrayInt([2,2,2,2,2,3,4,3,1,1,1,1,1,1]) ) )
-      assert( b.isEqual( DataArrayInt([4,3]) ) )
-      assert( f.isEqual( DataArrayInt([0,2]) ) )  
+      assert( a.isEqual( mc.DataArrayInt([2,2,2,2,2,3,4,3,1,1,1,1,1,1]) ) )
+      assert( b.isEqual( mc.DataArrayInt([4,3]) ) )
+      assert( f.isEqual( mc.DataArrayInt([0,2]) ) )  
       #### Case 3 : multi fusion single tuple
-      c = DataArrayInt([2,7,3,6]) ; ci = DataArrayInt([0,2,4]) # elts (2,7) and (3,6) to merge. These 2 couples refers to partitionIDs (2,3)
+      c = mc.DataArrayInt([2,7,3,6]) ; ci = mc.DataArrayInt([0,2,4]) # elts (2,7) and (3,6) to merge. These 2 couples refers to partitionIDs (2,3)
       a,b,f = d.forThisAsPartitionBuildReduction(c,ci)
-      assert( a.isEqual( DataArrayInt([2,2,4,4,2,3,3,1,1,1,1,1,1]) ) )
-      assert( b.isEqual( DataArrayInt([4,2,3]) ) ) # Fuse element can be located with ID 4
-      assert( f.isEqual( DataArrayInt([0,3]) ) )
+      assert( a.isEqual( mc.DataArrayInt([2,2,4,4,2,3,3,1,1,1,1,1,1]) ) )
+      assert( b.isEqual( mc.DataArrayInt([4,2,3]) ) ) # Fuse element can be located with ID 4
+      assert( f.isEqual( mc.DataArrayInt([0,3]) ) )
       
       #### Case 4 : multi fusion
-      c = DataArrayInt([2,7,3,10]) ; ci = DataArrayInt([0,2,4])
+      c = mc.DataArrayInt([2,7,3,10]) ; ci = mc.DataArrayInt([0,2,4])
       a,b,f = d.forThisAsPartitionBuildReduction(c,ci)
-      assert( a.isEqual( DataArrayInt([2,2,4,5,2,3,3,3,1,1,1,1,1]) ) )
-      assert( b.isEqual( DataArrayInt([4,2,3,5,1,2]) ) )
-      assert( f.isEqual( DataArrayInt([0,3,6]) ) )
+      assert( a.isEqual( mc.DataArrayInt([2,2,4,5,2,3,3,3,1,1,1,1,1]) ) )
+      assert( b.isEqual( mc.DataArrayInt([4,2,3,5,1,2]) ) )
+      assert( f.isEqual( mc.DataArrayInt([0,3,6]) ) )
 
     def testDASortPerTuple1(self):
       """
       EDF30178 : useful method DataArrayInt.sortPerTuple
       """
-      arr = DataArrayInt([(1,2,3),(5,4,6),(9,8,7)])
+      arr = mc.DataArrayInt([(1,2,3),(5,4,6),(9,8,7)])
       arr.sortPerTuple( True )
-      self.assertTrue( arr.isEqual( DataArrayInt([(1,2,3),(4,5,6),(7,8,9)]) ) )
+      self.assertTrue( arr.isEqual( mc.DataArrayInt([(1,2,3),(4,5,6),(7,8,9)]) ) )
 
     def testDAIFindCommonTuples(self):
       """
       EDF30178 : useful method DataArrayInt.findCommonTuples
       """
-      arr = DataArrayInt([(1,2,3),(4,5,6),(-1,2,3),(3,2,1),(1,2,3),(6,5,4),(4,5,6),(4,5,6)])
+      arr = mc.DataArrayInt([(1,2,3),(4,5,6),(-1,2,3),(3,2,1),(1,2,3),(6,5,4),(4,5,6),(4,5,6)])
       c,ci = arr.findCommonTuples(2)
-      self.assertTrue( ci.isEqual( DataArrayInt([0,2,5]) ) )
-      self.assertTrue( c.isEqual( DataArrayInt([0,4, 1,6,7]) ) )
+      self.assertTrue( ci.isEqual( mc.DataArrayInt([0,2,5]) ) )
+      self.assertTrue( c.isEqual( mc.DataArrayInt([0,4, 1,6,7]) ) )
 
 if __name__ == '__main__':
     unittest.main()
