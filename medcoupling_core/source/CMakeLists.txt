@@ -45,9 +45,9 @@ if(MEDCOUPLING_USE_64BIT_IDS)
 endif()
 target_compile_options(medcouplingcpp PUBLIC -fsigned-char)
 
-if(WIN32)
-  target_link_options(medcouplingcpp PRIVATE "-Wl,--export-all-symbols")
-endif()
+# if(WIN32)
+#   target_link_options(medcouplingcpp PRIVATE "-Wl,--export-all-symbols")
+# endif()
 
 target_link_libraries(medcouplingcpp PRIVATE interpkernel array mesh field amr)
 

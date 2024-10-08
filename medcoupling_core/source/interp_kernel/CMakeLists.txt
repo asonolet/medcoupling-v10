@@ -69,9 +69,22 @@ set(INTERPKERNEL_SOURCES
 
 add_library(interpkernel OBJECT ${INTERPKERNEL_SOURCES})
 # add_library(MEDCoupling::interpkernel ALIAS interpkernel)
-target_compile_options(interpkernel PRIVATE -fPIC)
-target_compile_options(interpkernel PUBLIC -fsigned-char)
-target_compile_definitions(interpkernel PRIVATE "interpkernel_EXPORTS")
+
+# compile definitions are public because those object lib are
+# links privately linked
+if(WIN32)
+  target_compile_definitions(interpkernel PUBLIC "interpkernel_EXPORTS")
+else()
+  target_compile_options(
+    interpkernel
+    PRIVATE -fPIC
+    PUBLIC -fsigned-char)
+  target_compile_definitions(interpkernel PUBLIC "_POSIX_MAPPED_FILES")
+endif()
+
+if(NOT DEFINED MSVC)
+  target_compile_options(array PRIVATE -Wsign-compare -Wconversion)
+endif()
 
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(interpkernel PUBLIC "MEDCOULPING_USE_64BIT_IDS")
@@ -88,20 +101,3 @@ target_include_directories(
     "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel/GaussPoints>"
     "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/interp_kernel/LinearAlgebra>"
 )
-
-if(NOT DEFINED MSVC)
-  target_compile_options(interpkernel PRIVATE -Wsign-compare -Wconversion)
-endif()
-
-if(NOT WIN32)
-  set_target_properties(interpkernel PROPERTIES COMPILE_FLAGS "-D_POSIX_MAPPED_FILES")
-endif(NOT WIN32)
-
-# install(
-#   TARGETS interpkernel
-#   EXPORT ${CMAKE_PROJECT_NAME}TargetGroup
-#   DESTINATION ${MEDCOUPLING_INSTALL_LIBS}
-#   INCLUDES DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
-# 
-# file(GLOB_RECURSE interpkernel_HEADERS "${PROJECT_SOURCE_DIR}/include/interp_kernel/*")
-# install(FILES ${interpkernel_HEADERS} DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})

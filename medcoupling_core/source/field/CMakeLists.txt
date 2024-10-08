@@ -45,7 +45,10 @@ set(MEDCOUPLING_SOURCES
     MEDCouplingVoronoi.cxx)
 
 add_library(field OBJECT ${MEDCOUPLING_SOURCES})
-target_compile_options(field PRIVATE -fPIC)
+if(NOT WIN32)
+  target_compile_options(array PRIVATE -fPIC)
+  target_compile_definitions(array PUBLIC "_POSIX_MAPPED_FILES")
+endif()
 
 if(NOT DEFINED MSVC)
   target_compile_options(field PRIVATE -Wsign-compare -Wconversion)

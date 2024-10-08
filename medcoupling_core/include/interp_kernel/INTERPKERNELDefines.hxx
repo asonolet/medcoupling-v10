@@ -26,11 +26,9 @@
 #define VAR_NAME_VALUE(var) #var "="  VALUE(var)
 
 #pragma message(VAR_NAME_VALUE(interpkernel_EXPORTS))
-#pragma message(VAR_NAME_VALUE(medcouplingcpp_EXPORTS))
-#pragma message(VAR_NAME_VALUE(medcoupling_EXPORTS))
 
 #ifdef WIN32
-# if defined(interpkernel_EXPORTS) || defined(medcouplingcpp_EXPORTS)
+# if defined(interpkernel_EXPORTS)
 #  define INTERPKERNEL_EXPORT __declspec(dllexport)
 # else
 #  define INTERPKERNEL_EXPORT __declspec(dllimport)

@@ -40,7 +40,11 @@ set(MEDCOUPLING_SOURCES
     MEDCouplingPartDefinition.cxx)
 
 add_library(array OBJECT ${MEDCOUPLING_SOURCES})
-target_compile_options(array PRIVATE -fPIC)
+if(WIN32)
+  target_compile_definitions(array PUBLIC "medcouplingcpp_EXPORTS")
+else()
+  target_compile_options(array PRIVATE -fPIC)
+endif()
 
 if(NOT DEFINED MSVC)
   target_compile_options(array PRIVATE -Wsign-compare -Wconversion)
