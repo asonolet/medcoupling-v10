@@ -19,7 +19,14 @@
 // Author : Anthony Geay (CEA/DEN)
 
 #ifndef _MEDCOUPLING_HXX_
+
 #define _MEDCOUPLING_HXX_
+#define VALUE_TO_STRING(x) #x
+#define VALUE(x) VALUE_TO_STRING(x)
+#define VAR_NAME_VALUE(var) #var "="  VALUE(var)
+
+#pragma message(VAR_NAME_VALUE(medcoupling_EXPORTS))
+#pragma message(VAR_NAME_VALUE(medcouplingcpp_EXPORTS))
 
 #ifdef WIN32
 #  if defined(medcoupling_EXPORTS) || defined(medcouplingcpp_EXPORTS)

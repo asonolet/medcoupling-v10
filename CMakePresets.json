@@ -260,7 +260,8 @@
     {
       "name": "ci-windows",
       "inherits": "ci-build",
-      "configurePreset": "ci-windows"
+      "configurePreset": "ci-windows",
+      "jobs": 1
     },
     {
       "name": "ci-macos",
