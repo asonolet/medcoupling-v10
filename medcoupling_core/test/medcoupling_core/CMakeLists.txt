@@ -37,15 +37,15 @@ target_include_directories(MEDCouplingTestUtils PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel>
 )
-target_link_libraries(MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
+target_link_libraries(MEDCouplingTestUtils PRIVATE medcouplingcpp cppunit::cppunit)
 
 add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
-target_link_libraries(TestMEDCoupling MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
+target_link_libraries(TestMEDCoupling PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCoupling TestMEDCoupling)
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
-target_link_libraries(TestMEDCouplingExamples MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
+target_link_libraries(TestMEDCouplingExamples PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCouplingExamples TestMEDCouplingExamples)
 
