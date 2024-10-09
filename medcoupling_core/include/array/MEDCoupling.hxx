@@ -29,7 +29,7 @@
 #pragma message(VAR_NAME_VALUE(medcouplingcpp_EXPORTS))
 
 #ifdef WIN32
-#  if defined(medcoupling_EXPORTS) || defined(medcouplingcpp_EXPORTS)
+#  if defined(medcouplingcpp_EXPORTS)
 #    define MEDCOUPLING_EXPORT __declspec( dllexport )
 #  else
 #    define MEDCOUPLING_EXPORT __declspec( dllimport )
