@@ -73,7 +73,7 @@ add_library(interpkernel OBJECT ${INTERPKERNEL_SOURCES})
 # compile definitions are public because those object lib are
 # links privately linked
 if(WIN32)
-  target_compile_definitions(interpkernel PUBLIC "interpkernel_EXPORTS")
+  target_compile_definitions(interpkernel PRIVATE "interpkernel_EXPORTS")
 else()
   target_compile_options(
     interpkernel

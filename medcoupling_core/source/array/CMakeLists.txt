@@ -41,7 +41,7 @@ set(MEDCOUPLING_SOURCES
 
 add_library(array OBJECT ${MEDCOUPLING_SOURCES})
 if(WIN32)
-  target_compile_definitions(array PUBLIC "medcouplingcpp_EXPORTS")
+  target_compile_definitions(array PRIVATE "medcouplingcpp_EXPORTS")
 else()
   target_compile_options(array PRIVATE -fPIC)
 endif()
