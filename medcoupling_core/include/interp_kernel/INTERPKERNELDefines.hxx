@@ -21,11 +21,6 @@
 #define __INTERPKERNELDEFINES_HXX__
 
 //export symbols
-#define VALUE_TO_STRING(x) #x
-#define VALUE(x) VALUE_TO_STRING(x)
-#define VAR_NAME_VALUE(var) #var "="  VALUE(var)
-
-#pragma message(VAR_NAME_VALUE(interpkernel_EXPORTS))
 
 #ifdef WIN32
 # if defined(interpkernel_EXPORTS)
@@ -36,7 +31,5 @@
 #else
 # define INTERPKERNEL_EXPORT
 #endif 
-
-#pragma message(VAR_NAME_VALUE(INTERPKERNEL_EXPORT))
 
 #endif
