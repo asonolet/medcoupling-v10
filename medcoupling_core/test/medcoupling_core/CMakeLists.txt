@@ -62,7 +62,7 @@ if(WIN32)
   )
   add_custom_target(
     genexdebug1 COMMAND
-    ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>")
+    ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATH}")
 endif()
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
@@ -82,7 +82,7 @@ if(WIN32)
   )
   add_custom_target(
     genexdebug2 COMMAND
-    ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>")
+    ${CMAKE_COMMAND} -E echo "TestMEDCouplingExamples dll paths: ${DLL_PATH}")
 endif()
 
 # set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
