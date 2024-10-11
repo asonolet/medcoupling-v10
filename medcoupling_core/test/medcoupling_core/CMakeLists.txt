@@ -42,7 +42,7 @@ if(WIN32)
   set_property(TARGET MEDCouplingTestUtils PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
-target_link_libraries(MEDCouplingTestUtils PRIVATE medcouplingcpp cppunit::cppunit)
+target_link_libraries(MEDCouplingTestUtils PUBLIC medcouplingcpp cppunit::cppunit)
 
 add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
 

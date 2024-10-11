@@ -299,7 +299,7 @@
         "noTestsAction": "error"
       },
       "output": {
-        "verbose": "extra"
+        "verbosity": "extra"
       }
     },
     {
