@@ -136,6 +136,15 @@ foreach(test ${BASE_TESTS})
     NAME py${testname}
     COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
   set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
+
+  if(WIN32)
+    # Ensure the required DLLs can be found at runtime
+    set_tests_properties(
+      py${testname} PROPERTIES
+      ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}"
+    )
+    message(INFO "ENVIRONMENT PATH set to " $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH})
+  endif()
 endforeach()
 
 if(NUMPY_FOUND)
