@@ -39,6 +39,10 @@ jobs:
       shell: pwsh
       run: cmake "--preset=ci-$("${{ matrix.os }}".split("-")[0])"
 
+    - name: Debug Windows
+      shell: pwsh
+      run: cmake --build  --preset="ci-$("${{ matrix.os }}".split("-")[0])" --target genexdebug1 genexdebug2 genexdebug3
+
     - name: Build
       shell: pwsh
       run: cmake --build --preset="ci-$("${{ matrix.os }}".split("-")[0])"
