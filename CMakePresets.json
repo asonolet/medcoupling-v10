@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 6,
   "cmakeMinimumRequired": {
     "major": 3,
     "minor": 14,
@@ -260,8 +260,7 @@
     {
       "name": "ci-windows",
       "inherits": "ci-build",
-      "configurePreset": "ci-windows",
-      "jobs": 1
+      "configurePreset": "ci-windows"
     },
     {
       "name": "ci-macos",
@@ -347,6 +346,26 @@
       "name": "ci-coverage",
       "inherits": "ci-test",
       "configurePreset": "ci-coverage"
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "dev",
+      "description": "A workflow which configures, build and test the Debug configuration",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev"
+        },
+        {
+          "type": "build",
+          "name": "dev"
+        },
+        {
+          "type": "test",
+          "name": "dev"
+        }
+      ]
     }
   ]
 }
