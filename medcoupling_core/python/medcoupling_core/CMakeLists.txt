@@ -128,9 +128,13 @@ set(NUMPY_TESTS
 
 configure_file(MEDCouplingDataForTest.py MEDCouplingDataForTest.py)
 
-set(ALL_TESTS ${BASE_TESTS} ${NUMPY_TESTS})
+if(NUMPY_FOUND)
+  set(ALL_TESTS ${BASE_TESTS} ${NUMPY_TESTS})
+else()
+  set(ALL_TESTS ${BASE_TESTS})
+endif()
 
-foreach(test ${BASE_TESTS})
+foreach(test ${ALL_TESTS})
   get_filename_component(testname ${test} NAME_WE)
   add_test(
     NAME py${testname}
@@ -141,21 +145,11 @@ foreach(test ${BASE_TESTS})
     # Ensure the required DLLs can be found at runtime
     set_tests_properties(
       py${testname} PROPERTIES
-      ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}"
+      ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>$<SEMICOLON>$ENV{PATH}"
     )
-    message(INFO "ENVIRONMENT PATH set to " $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH})
+    message(STATUS "ENVIRONMENT PATH set to " $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>$<SEMICOLON>$ENV{PATH})
   endif()
 endforeach()
-
-if(NUMPY_FOUND)
-  foreach(test ${NUMPY_TESTS})
-    get_filename_component(testname ${test} NAME_WE)
-    add_test(
-      NAME py${testname}
-      COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
-    set_tests_properties(py${testname} PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}")
-  endforeach()
-endif(NUMPY_FOUND)
 
 # # Application tests
 # 

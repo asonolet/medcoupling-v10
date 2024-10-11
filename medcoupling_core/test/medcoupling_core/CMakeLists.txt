@@ -58,6 +58,7 @@ if(WIN32)
     TestMEDCoupling PROPERTIES
     ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>$ENV{PATH}"
   )
+  message(STATUS "ENVIRONMENT PATH set to $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>$ENV{PATH}")
 endif()
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
@@ -73,7 +74,7 @@ if(WIN32)
     TestMEDCouplingExamples PROPERTIES
     ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}"
   )
-  message(INFO "ENVIRONMENT PATH set to $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}")
+  message(STATUS "ENVIRONMENT PATH set to $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}")
 endif()
 
 # set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
