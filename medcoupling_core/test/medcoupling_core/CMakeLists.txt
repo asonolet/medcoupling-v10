@@ -37,6 +37,11 @@ target_include_directories(MEDCouplingTestUtils PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../interp_kernel>
 )
+
+if(WIN32)
+  set_property(TARGET MEDCouplingTestUtils PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
+
 target_link_libraries(MEDCouplingTestUtils PRIVATE medcouplingcpp cppunit::cppunit)
 
 add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
