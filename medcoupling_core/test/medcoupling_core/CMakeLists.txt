@@ -50,15 +50,13 @@ target_link_libraries(
   TestMEDCoupling
   PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
-add_test(TestMEDCoupling TestMEDCoupling)
+add_test(NAME TestMEDCoupling COMMAND TestMEDCoupling)
 
 if(WIN32)
-  # Ensure the required DLLs can be found at runtime
-  set(DLL_PATH
-    $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>)
+  set(DLL_PATH $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>)
   set_tests_properties(
     TestMEDCoupling PROPERTIES
-    ENVIRONMENT "PATH=${DLL_PATH}$ENV{PATH}"
+    ENVIRONMENT_MODIFICATION "PATH=path_list_prepend:${DLL_PATH}"
   )
   add_custom_target(
     genexdebug1 COMMAND
@@ -70,15 +68,13 @@ target_link_libraries(
   TestMEDCouplingExamples
   PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
-add_test(TestMEDCouplingExamples TestMEDCouplingExamples)
+add_test(NAME TestMEDCouplingExamples COMMAND TestMEDCouplingExamples)
 
 if(WIN32)
-  # Ensure the required DLLs can be found at runtime
-  set(DLL_PATH
-    $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>)
+  set(DLL_PATH $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>)
   set_tests_properties(
     TestMEDCouplingExamples PROPERTIES
-    ENVIRONMENT "PATH=${DLL_PATH}$ENV{PATH}"
+    ENVIRONMENT_MODIFICATION "PATH=path_list_prepend:${DLL_PATH}"
   )
   add_custom_target(
     genexdebug2 COMMAND
