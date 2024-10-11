@@ -50,4 +50,4 @@ jobs:
 
     - name: Test
       shell: pwsh
-      run: ctest "--preset=ci-$("${{ matrix.os }}".split("-")[0]) -VV"
+      run: ctest "--preset=ci-$("${{ matrix.os }}".split("-")[0])"

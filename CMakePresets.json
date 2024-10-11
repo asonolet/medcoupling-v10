@@ -297,6 +297,9 @@
       "execution": {
         "jobs": 4,
         "noTestsAction": "error"
+      },
+      "output": {
+        "verbose": "extra"
       }
     },
     {
