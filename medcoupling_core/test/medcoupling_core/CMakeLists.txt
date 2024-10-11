@@ -49,6 +49,14 @@ target_link_libraries(TestMEDCoupling PUBLIC MEDCouplingTestUtils medcouplingcpp
 
 add_test(TestMEDCoupling TestMEDCoupling)
 
+if(WIN32)
+  # Ensure the required DLLs can be found at runtime
+  set_tests_properties(
+    TestMEDCoupling
+    PROPERTIES ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_FILE_DIR:medcouplingcpp>>$<SEMICOLON>$ENV{PATH}"
+  )
+endif()
+
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
 target_link_libraries(TestMEDCouplingExamples PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
