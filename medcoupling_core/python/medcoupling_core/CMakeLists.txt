@@ -136,9 +136,8 @@ endif()
 
 if(WIN32)
   set(DLL_PATH $<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>$<SEMICOLON>)
+  add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>$<SEMICOLON>")
 endif()
-
-add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>$<SEMICOLON>")
 
 foreach(test ${ALL_TESTS})
   get_filename_component(testname ${test} NAME_WE)

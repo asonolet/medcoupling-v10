@@ -60,11 +60,10 @@ if(WIN32)
     TestMEDCoupling PROPERTIES
     ENVIRONMENT "PATH=${DLL_PATH}$ENV{PATH}"
   )
+  add_custom_target(
+    genexdebug1 COMMAND
+    ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>")
 endif()
-
-add_custom_target(
-  genexdebug1 COMMAND
-  ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>")
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
 target_link_libraries(
@@ -81,11 +80,10 @@ if(WIN32)
     TestMEDCouplingExamples PROPERTIES
     ENVIRONMENT "PATH=${DLL_PATH}$ENV{PATH}"
   )
+  add_custom_target(
+    genexdebug2 COMMAND
+    ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>")
 endif()
-
-add_custom_target(
-  genexdebug2 COMMAND
-  ${CMAKE_COMMAND} -E echo "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>")
 
 # set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
 
