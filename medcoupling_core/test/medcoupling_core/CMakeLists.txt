@@ -45,22 +45,35 @@ endif()
 target_link_libraries(MEDCouplingTestUtils PRIVATE medcouplingcpp cppunit::cppunit)
 
 add_executable(TestMEDCoupling ${TestMEDCoupling_SOURCES})
-target_link_libraries(TestMEDCoupling PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
+
+target_link_libraries(
+  TestMEDCoupling
+  PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCoupling TestMEDCoupling)
 
 if(WIN32)
   # Ensure the required DLLs can be found at runtime
   set_tests_properties(
-    TestMEDCoupling
-    PROPERTIES ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_FILE_DIR:medcouplingcpp>>$<SEMICOLON>$ENV{PATH}"
+    TestMEDCoupling PROPERTIES
+    ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>$<SEMICOLON>$ENV{PATH}"
   )
 endif()
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
-target_link_libraries(TestMEDCouplingExamples PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
+target_link_libraries(
+  TestMEDCouplingExamples
+  PUBLIC MEDCouplingTestUtils medcouplingcpp cppunit::cppunit)
 
 add_test(TestMEDCouplingExamples TestMEDCouplingExamples)
+
+if(WIN32)
+  # Ensure the required DLLs can be found at runtime
+  set_tests_properties(
+    TestMEDCouplingExamples PROPERTIES
+    ENVIRONMENT "PATH=$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>$<SEMICOLON>$ENV{PATH}"
+  )
+endif()
 
 # set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
 
