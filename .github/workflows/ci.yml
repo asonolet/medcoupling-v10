@@ -49,5 +49,5 @@ jobs:
       run: cmake --build --preset="ci-$("${{ matrix.os }}".split("-")[0])"
 
     - name: Test
-      shell: pwsh
-      run: ctest "--preset=ci-$("${{ matrix.os }}".split("-")[0])" ; cd build && find . -name UnitTestsResult | xargs cat
+      shell: bash
+      run: distrib=${{ matrix.os }} ; ctest --preset=ci-${distrib%-*} ; cd build && find . -name UnitTestsResult | xargs cat
