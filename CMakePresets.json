@@ -297,9 +297,6 @@
       "execution": {
         "jobs": 4,
         "noTestsAction": "error"
-      },
-      "output": {
-        "verbosity": "extra"
       }
     },
     {
@@ -334,7 +331,13 @@
     {
       "name": "ci-windows",
       "inherits": "ci-test",
-      "configurePreset": "ci-windows"
+      "configurePreset": "ci-windows",
+      "execution": {
+        "jobs": 1
+      },
+      "output": {
+        "verbosity": "extra"
+      }
     },
     {
       "name": "ci-macos",
