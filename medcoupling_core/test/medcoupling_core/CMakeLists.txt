@@ -53,7 +53,7 @@ target_link_libraries(
 add_test(NAME TestMEDCoupling COMMAND TestMEDCoupling)
 
 if(WIN32)
-  set(DLL_PATHS "$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>")
+  set(DLL_PATHS $<JOIN:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>,";">)
   set_tests_properties(
     TestMEDCoupling PROPERTIES
     ENVIRONMENT_MODIFICATION "PATH=set:${DLL_PATHS};$ENV{PATH}"
@@ -71,7 +71,7 @@ target_link_libraries(
 add_test(NAME TestMEDCouplingExamples COMMAND TestMEDCouplingExamples)
 
 if(WIN32)
-  set(DLL_PATHS "$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>")
+  set(DLL_PATHS "$<JOIN:$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>,$<SEMICOLON>>")
   set_tests_properties(
     TestMEDCouplingExamples PROPERTIES
     ENVIRONMENT_MODIFICATION "PATH=set:${DLL_PATHS};$ENV{PATH}"
