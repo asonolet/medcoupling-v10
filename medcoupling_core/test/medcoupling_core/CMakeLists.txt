@@ -53,14 +53,15 @@ target_link_libraries(
 add_test(NAME TestMEDCoupling COMMAND TestMEDCoupling)
 
 if(WIN32)
-  set(DLL_PATHS $<JOIN:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>,";">)
+  set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>")
+  set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
   set_tests_properties(
     TestMEDCoupling PROPERTIES
-    ENVIRONMENT_MODIFICATION "PATH=set:${DLL_PATHS};$ENV{PATH}"
+    ENVIRONMENT "PATH=${UPDATED_PATH}"
   )
   add_custom_target(
     genexdebug1 COMMAND
-    ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}")
+    ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}, and now updated path : ${UPDATED_PATH}")
 endif()
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
