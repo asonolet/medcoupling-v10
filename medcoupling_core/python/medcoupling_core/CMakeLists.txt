@@ -136,7 +136,8 @@ endif()
 
 if(WIN32)
   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>")
-  add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_medcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS}")
+  set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
+  add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_medcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS} and new paths : ${UPDATED_PATH}")
 endif()
 
 foreach(test ${ALL_TESTS})
@@ -148,10 +149,10 @@ foreach(test ${ALL_TESTS})
     ENVIRONMENT_MODIFICATION "PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}")
 
   if(WIN32)
-      set_tests_properties(
-        py${testname} PROPERTIES
-        ENVIRONMENT_MODIFICATION "PATH=set:${DLL_PATHS};$ENV{PATH}"
-      )
+    set_tests_properties(
+      py${testname} PROPERTIES
+      ENVIRONMENT_MODIFICATION "PATH=set:${UPDATED_PATH}"
+    )
   endif()
 endforeach()
 
