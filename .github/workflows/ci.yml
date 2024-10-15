@@ -50,4 +50,4 @@ jobs:
 
     - name: Test
       shell: bash
-      run: distrib=${{ matrix.os }}; ctest --preset="ci-${distrib%-*}"; cd build && find . -name UnitTestsResult | xargs cat
+      run: distrib=${{ matrix.os }}; ctest --preset="ci-${distrib%-*}"; cd build && find . -name UnitTestsResult | xargs cat ; cd ..
