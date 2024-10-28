@@ -8,7 +8,16 @@
   "include": ["ConanPresets.json"],
   "configurePresets": [
     {
+      "name": "med-opt",
+      "hidden": true,
+      "cacheVariables": {
+        "MEDCOUPLING_USE_64BIT_IDS": "ON",
+        "MEDCOUPLING_USE_MPI": false
+      }
+    },
+    {
       "name": "common",
+      "inherits": "med-opt",
       "description": "This preset makes sure the project actually builds with at least the specified standard",
       "hidden": true,
       "cacheVariables": {
@@ -161,44 +170,36 @@
       }
     },
     {
-      "name": "med-opt",
-      "hidden": true,
-      "cacheVariables": {
-        "MEDCOUPLING_USE_64BIT_IDS": "ON",
-        "MEDCOUPLING_USE_MPI": false
-      }
-    },
-    {
       "name": "ci-coverage",
-      "inherits": ["coverage-linux", "conan-release", "med-opt"]
+      "inherits": ["coverage-linux", "conan-release"]
     },
     {
       "name": "ci-sanitize",
-      "inherits": ["sanitize-linux", "med-opt", "conan-release"]
-    },
-    {
-      "name": "ci-macos",
-      "inherits": ["darwin", "med-opt", "multi-config-release", "conan-release"]
+      "inherits": ["sanitize-linux", "conan-release"]
     },
     {
       "name": "ci-ubuntu",
-      "inherits": ["rel-linux", "conan-release", "med-opt"]
+      "inherits": ["rel-linux", "conan-release"]
+    },
+    {
+      "name": "ci-macos",
+      "inherits": ["darwin", "conan-default"]
     },
     {
       "name": "ci-windows",
-      "inherits": ["win64", "med-opt", "multi-config-release", "conan-default"]
+      "inherits": ["win64", "conan-default"]
     },
     {
       "name": "dev",
-      "inherits": ["dev-linux", "conan-debug", "med-opt"]
+      "inherits": ["dev-linux", "conan-debug"]
     },
     {
       "name": "relwdeb",
-      "inherits": ["relwdeb-linux", "conan-debug", "med-opt"]
+      "inherits": ["relwdeb-linux", "conan-debug"]
     },
     {
       "name": "rel",
-      "inherits": ["rel-linux", "conan-release", "med-opt"]
+      "inherits": ["rel-linux", "conan-release"]
     }
   ],
   "buildPresets": [
