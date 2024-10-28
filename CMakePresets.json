@@ -206,26 +206,31 @@
     {
       "name": "dev",
       "inherits": "conan-debug",
+      "configuration": "Debug",
       "configurePreset": "dev"
     },
     {
       "name": "rel",
       "inherits": "conan-release",
+      "configuration": "Release",
       "configurePreset": "rel"
     },
     {
       "name": "ci-ubuntu",
       "inherits": "conan-release",
+      "configuration": "Release",
       "configurePreset": "ci-ubuntu"
     },
     {
       "name": "ci-windows",
       "inherits": "conan-release",
+      "configuration": "Release",
       "configurePreset": "ci-windows"
     },
     {
       "name": "ci-macos",
       "inherits": "conan-release",
+      "configuration": "Release",
       "configurePreset": "ci-macos"
     }
   ],
@@ -262,21 +267,25 @@
     {
       "name": "dev",
       "inherits": ["common-test", "conan-debug"],
+      "configuration": "Debug",
       "configurePreset": "dev"
     },
     {
       "name": "rel",
       "inherits": ["common-test", "conan-release"],
+      "configuration": "Release",
       "configurePreset": "rel"
     },
     {
       "name": "ci-ubuntu",
       "inherits": ["common-test", "conan-release"],
+      "configuration": "Release",
       "configurePreset": "ci-ubuntu"
     },
     {
       "name": "ci-windows",
       "inherits": ["common-test", "conan-release"],
+      "configuration": "Release",
       "configurePreset": "ci-windows",
       "execution": {
         "jobs": 1
@@ -288,6 +297,7 @@
     {
       "name": "ci-macos",
       "inherits": ["common-test", "conan-release"],
+      "configuration": "Release",
       "configurePreset": "ci-macos"
     }
   ],
