@@ -27,4 +27,5 @@ conan remote add salome-conan-packages ./salome-conan-packages
 
 conan remove \* --lru=1M -c
 conan install . -b missing -o "*:shared=True"
+conan install . -b missing -o "*:shared=True" -s build_type=Debug
 conan cache save '*/*:*' --file=conan_cache_save.tgz

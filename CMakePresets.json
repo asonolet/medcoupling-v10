@@ -170,36 +170,24 @@
       }
     },
     {
-      "name": "ci-coverage",
-      "inherits": ["coverage-linux", "conan-release"]
-    },
-    {
-      "name": "ci-sanitize",
-      "inherits": ["sanitize-linux", "conan-release"]
-    },
-    {
       "name": "ci-ubuntu",
-      "inherits": ["rel-linux", "conan-release"]
+      "inherits": "conan-release"
     },
     {
       "name": "ci-macos",
-      "inherits": ["darwin", "conan-default"]
+      "inherits": "conan-default"
     },
     {
       "name": "ci-windows",
-      "inherits": ["win64", "conan-default"]
+      "inherits": "conan-default"
     },
     {
       "name": "dev",
-      "inherits": ["dev-linux", "conan-debug"]
-    },
-    {
-      "name": "relwdeb",
-      "inherits": ["relwdeb-linux", "conan-debug"]
+      "inherits": "conan-debug"
     },
     {
       "name": "rel",
-      "inherits": ["rel-linux", "conan-release"]
+      "inherits": "conan-release"
     }
   ],
   "buildPresets": [
@@ -217,43 +205,28 @@
     },
     {
       "name": "dev",
-      "inherits": ["local-build", "conan-debug"],
+      "inherits": "conan-debug",
       "configurePreset": "dev"
     },
     {
-      "name": "relwdeb",
-      "inherits": ["local-build", "conan-debug"],
-      "configurePreset": "relwdeb"
-    },
-    {
       "name": "rel",
-      "inherits": ["local-build", "conan-release"],
+      "inherits": "conan-release",
       "configurePreset": "rel"
     },
     {
       "name": "ci-ubuntu",
-      "inherits": ["ci-build", "conan-release"],
+      "inherits": "conan-release",
       "configurePreset": "ci-ubuntu"
     },
     {
       "name": "ci-windows",
-      "inherits": ["ci-build", "conan-release"],
+      "inherits": "conan-release",
       "configurePreset": "ci-windows"
     },
     {
       "name": "ci-macos",
-      "inherits": ["ci-build", "conan-release"],
+      "inherits": "conan-release",
       "configurePreset": "ci-macos"
-    },
-    {
-      "name": "ci-sanitize",
-      "inherits": ["ci-build", "conan-release"],
-      "configurePreset": "ci-sanitize"
-    },
-    {
-      "name": "ci-coverage",
-      "inherits": ["ci-build", "conan-release"],
-      "configurePreset": "ci-coverage"
     }
   ],
   "testPresets": [
@@ -288,27 +261,22 @@
     },
     {
       "name": "dev",
-      "inherits": ["local-test", "conan-debug"],
+      "inherits": ["common-test", "conan-debug"],
       "configurePreset": "dev"
     },
     {
-      "name": "relwdeb",
-      "inherits": ["local-test", "conan-debug"],
-      "configurePreset": "relwdeb"
-    },
-    {
       "name": "rel",
-      "inherits": ["local-test", "conan-release"],
+      "inherits": ["common-test", "conan-release"],
       "configurePreset": "rel"
     },
     {
       "name": "ci-ubuntu",
-      "inherits": ["ci-test", "conan-release"],
+      "inherits": ["common-test", "conan-release"],
       "configurePreset": "ci-ubuntu"
     },
     {
       "name": "ci-windows",
-      "inherits": ["ci-test", "conan-release"],
+      "inherits": ["common-test", "conan-release"],
       "configurePreset": "ci-windows",
       "execution": {
         "jobs": 1
@@ -319,18 +287,8 @@
     },
     {
       "name": "ci-macos",
-      "inherits": ["ci-test", "conan-release"],
+      "inherits": ["common-test", "conan-release"],
       "configurePreset": "ci-macos"
-    },
-    {
-      "name": "ci-sanitize",
-      "inherits": ["ci-test", "conan-release"],
-      "configurePreset": "ci-sanitize"
-    },
-    {
-      "name": "ci-coverage",
-      "inherits": ["ci-test", "conan-release"],
-      "configurePreset": "ci-coverage"
     }
   ],
   "workflowPresets": [
