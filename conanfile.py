@@ -37,7 +37,6 @@ class Recipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
-        tc.user_presets_path = "ConanPresets.json"
         tc.cache_variables["MEDCOUPLING_USE_MPI"] = self.options.parallel
         tc.cache_variables["MEDCOUPLING_USE_64BIT_IDS"] = not self.options.is_32bit
         tc.generate()
