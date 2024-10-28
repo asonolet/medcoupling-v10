@@ -35,19 +35,20 @@ jobs:
       shell: bash
       run: bash < .github/scripts/conan-ci-setup.sh
 
-    - name: Configure
-      shell: pwsh
-      run: cmake "--preset=ci-$("${{ matrix.os }}".split("-")[0])"
+    - name: Configure multi-config generator
+      if: ${{ matrix.os == 'windows-2019'}}
+      shell: bash
+      run: cmake --preset=conan-default
 
-    - name: Debug Windows
-      if: ${{ matrix.os == 'windows-2019' }}
-      shell: pwsh
-      run: cmake --build  --preset="ci-$("${{ matrix.os }}".split("-")[0])" --target genexdebug1 genexdebug2 genexdebug3
+    - name: Configure single-config generator
+      if: ${{ matrix.os == 'ubuntu-22.04'}}
+      shell: bash
+      run: cmake --preset=conan-release
 
     - name: Build
-      shell: pwsh
-      run: cmake --build --preset="ci-$("${{ matrix.os }}".split("-")[0])"
+      shell: bash
+      run: cmake --build --preset=conan-release
 
     - name: Test
       shell: bash
-      run: distrib=${{ matrix.os }}; ctest --preset="ci-${distrib%-*}" || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
+      run: ctest --preset=conan-release || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
