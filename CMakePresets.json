@@ -170,50 +170,34 @@
     },
     {
       "name": "ci-coverage",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
       "inherits": ["coverage-linux", "conan-release", "med-opt"]
     },
     {
       "name": "ci-sanitize",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
       "inherits": ["sanitize-linux", "med-opt", "conan-release"]
     },
     {
       "name": "ci-macos",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
       "inherits": ["darwin", "med-opt", "multi-config-release", "conan-release"]
     },
     {
       "name": "ci-ubuntu",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
       "inherits": ["rel-linux", "conan-release", "med-opt"]
     },
     {
       "name": "ci-windows",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
-      "inherits": ["win64", "med-opt", "multi-config-release", "conan-release"]
+      "inherits": ["win64", "med-opt", "multi-config-release", "conan-default"]
     },
     {
       "name": "dev",
-      "binaryDir": "${sourceDir}/build/Debug",
-      "installDir": "${sourceDir}/install/Debug",
       "inherits": ["dev-linux", "conan-debug", "med-opt"]
     },
     {
       "name": "relwdeb",
-      "binaryDir": "${sourceDir}/build/RelWithDebInfo",
-      "installDir": "${sourceDir}/install/RelWithDebInfo",
       "inherits": ["relwdeb-linux", "conan-debug", "med-opt"]
     },
     {
       "name": "rel",
-      "binaryDir": "${sourceDir}/build/Release",
-      "installDir": "${sourceDir}/install/Release",
       "inherits": ["rel-linux", "conan-release", "med-opt"]
     }
   ],

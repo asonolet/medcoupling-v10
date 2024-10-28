@@ -4,9 +4,18 @@ from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 
 class Recipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    # generators = "CMakeDeps", "VirtualRunEnv"
-    options = {"shared": [True, False], "fPIC": [True, False], "parallel": [True, False], "is_32bit": [True, False]}
-    default_options = {"shared": True, "fPIC": True, "parallel": False, "is_32bit": False}
+    options = {
+        "shared": [True, False],
+        "fPIC": [True, False],
+        "parallel": [True, False],
+        "is_32bit": [True, False],
+    }
+    default_options = {
+        "shared": True,
+        "fPIC": True,
+        "parallel": False,
+        "is_32bit": False,
+    }
 
     def requirements(self):
         self.requires("hdf5/1.10.5")
@@ -28,7 +37,7 @@ class Recipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
-        tc.user_presets_path = 'ConanPresets.json'
+        tc.user_presets_path = "ConanPresets.json"
         tc.cache_variables["MEDCOUPLING_USE_MPI"] = self.options.parallel
         tc.cache_variables["MEDCOUPLING_USE_64BIT_IDS"] = not self.options.is_32bit
         tc.generate()
