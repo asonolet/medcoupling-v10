@@ -26,6 +26,5 @@ git clone https://github.com/asonolet/salome-conan-packages.git
 conan remote add salome-conan-packages ./salome-conan-packages
 
 conan remove \* --lru=1M -c
-conan install . -b missing -s build_type=Release -o "*:shared=True"
-conan install . -b missing -s build_type=Debug -o "*:shared=True"
+conan install . -b missing -o "*:shared=True"
 conan cache save '*/*:*' --file=conan_cache_save.tgz
