@@ -19,6 +19,27 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
+
+find_package(
+  Python
+  COMPONENTS Interpreter Development.Module NumPy
+  REQUIRED)
+
+find_package(
+  SWIG
+  COMPONENTS python
+  REQUIRED)
+
+include(UseSWIG)
+
+list(APPEND CMAKE_SWIG_FLAGS "-DWITH_NUMPY")
+list(APPEND CMAKE_SWIG_FLAGS "-DWITH_SCIPY")
+
+if(MEDCOUPLING_USE_64BIT_IDS)
+  list(APPEND CMAKE_SWIG_FLAGS "-DMEDCOUPLING_USE_64BIT_IDS")
+endif()
+
+
 set_source_files_properties(MEDLoader.i PROPERTIES CPLUSPLUS ON)
 
 # set(MEDLoader_SWIG_DPYS_FILES MEDLoaderCommon.i MEDLoaderTypemaps.i)
