@@ -170,32 +170,32 @@
     },
     {
       "name": "ci-coverage",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "installDir": "${sourceDir}/install/coverage",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "inherits": ["coverage-linux", "conan-release", "med-opt"]
     },
     {
       "name": "ci-sanitize",
-      "binaryDir": "${sourceDir}/build/sanitize",
-      "installDir": "${sourceDir}/install/sanitize",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "inherits": ["sanitize-linux", "med-opt", "conan-release"]
     },
     {
       "name": "ci-macos",
-      "binaryDir": "${sourceDir}/build/macos",
-      "installDir": "${sourceDir}/install/macos",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "inherits": ["darwin", "med-opt", "multi-config-release", "conan-release"]
     },
     {
       "name": "ci-ubuntu",
-      "binaryDir": "${sourceDir}/build/linux",
-      "installDir": "${sourceDir}/install/linux",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "inherits": ["rel-linux", "conan-release", "med-opt"]
     },
     {
       "name": "ci-windows",
-      "binaryDir": "${sourceDir}/build/windows",
-      "installDir": "${sourceDir}/install/windows",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "inherits": ["win64", "med-opt", "multi-config-release", "conan-release"]
     },
     {
