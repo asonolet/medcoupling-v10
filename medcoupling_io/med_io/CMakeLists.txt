@@ -24,6 +24,18 @@
 #   add_definitions("-DHDF5_IS_PARALLEL")
 # endif(HDF5_ENABLE_PARALLEL OR HDF5_IS_PARALLEL)
 
+
+find_package(HDF5 REQUIRED)
+find_package(medfile REQUIRED)
+
+if(NOT TARGET HDF5::HDF5)
+  if(BUILD_SHARED_LIBS)
+    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-shared)
+  else()
+    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-static)
+  endif()
+endif()
+
 set(paramedloader_SOURCES ParaMEDLoader.cxx ParaMEDFileMesh.cxx)
 
 add_library(paramedloader ${paramedloader_SOURCES})

@@ -59,7 +59,7 @@ option(
 option(MEDCOUPLING_BUILD_TESTS "Build MEDCoupling C++ tests." ON)
 option(MEDCOUPLING_BUILD_PY_TESTS "Build MEDCoupling Python tests." OFF)
 option(MEDCOUPLING_BUILD_DOC "Build MEDCoupling doc." OFF)
-option(MEDCOUPLING_BUILD_STATIC "Build MEDCoupling library in static mode." OFF)
+# option(MEDCOUPLING_BUILD_STATIC "Build MEDCoupling library in static mode." OFF)
 option(
   MEDCOUPLING_USE_64BIT_IDS
   "Size of IDs to refer cells and nodes. 32 bits when OFF, 64 bits when ON (default)."
@@ -94,11 +94,8 @@ cmake_dependent_option(
   MEDCOUPLING_BUILD_FRENCH_DOC "Generate MEDCOUPLING French documentation" OFF
   "MEDCOUPLING_BUILD_DOC" OFF)
 
-if(MEDCOUPLING_BUILD_STATIC)
-  set(BUILD_SHARED_LIBS 0)
+if(BUILD_SHARED_LIBS)
   set(CMAKE_POSITION_INDEPENDENT_CODE 1) # -fPIC option
-else()
-  set(BUILD_SHARED_LIBS 1)
 endif()
 
 if(MEDCOUPLING_ENABLE_PYTHON)
@@ -112,6 +109,7 @@ if(MEDCOUPLING_ENABLE_PYTHON)
     COMPONENTS python
     REQUIRED)
 
+  # TODO: mettre SWIG plus bas ?
   include(UseSWIG)
 
   list(APPEND CMAKE_SWIG_FLAGS "-DWITH_NUMPY")
@@ -156,7 +154,7 @@ if(NOT SKBUILD)
     share/doc
     CACHE PATH "Install path: MEDCoupling documentation")
 
-  # Origin 
+  # Origin
   set(MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH $ORIGIN/../${MEDCOUPLING_INSTALL_LIBS})
   set(MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH $ORIGIN/../../../${MEDCOUPLING_INSTALL_LIBS})
 else()
@@ -209,80 +207,16 @@ mark_as_advanced(
 # TODO: should not be there but in medcoupling_io/medXXX
 # for now it stays here because it needs to use this project cmake
 # directory when built without conan.
-find_package(HDF5 REQUIRED)
-find_package(medfile REQUIRED)
-
-if(NOT TARGET HDF5::HDF5)
-  if(BUILD_SHARED_LIBS)
-    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-shared)
-  else()
-    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-static)
-  endif()
-endif()
 
 enable_testing()
 
+# TODO: utiliser une target medcoupling_flags
 if(WIN32)
   add_compile_definitions(_USE_MATH_DEFINES)
 endif()
+
 add_subdirectory(medcoupling_core)
 
-# TODO: move all this logic specific to shape recogn to the shape recogn CMakeLists.txt
-if(MEDCOUPLING_ENABLE_SHAPERECOGN)
-
-  if(UNIX)
-    set(CBLAS_ROOT_DIR $ENV{CBLAS_ROOT_DIR} CACHE PATH "Path to the LAPACK/CBLAS.")
-    if(CBLAS_ROOT_DIR)
-      list(APPEND CMAKE_PREFIX_PATH "${CBLAS_ROOT_DIR}")
-      find_package(CBLAS REQUIRED)
-    else()
-      find_package(BLAS REQUIRED)
-    endif()
-    set(LAPACK_ROOT_DIR $ENV{LAPACK_ROOT_DIR} CACHE PATH "Path to the LAPACKE")
-    if(LAPACK_ROOT_DIR)
-      set(LAPACK_ROOT_DIR $ENV{LAPACK_ROOT_DIR} CACHE PATH "Path to the LAPACK.")
-      list(APPEND CMAKE_PREFIX_PATH "${LAPACK_ROOT_DIR}")
-    endif()
-    find_package(LAPACK REQUIRED)
-    find_library(LAPACKE_LIB NAMES lapacke REQUIRED)
-    set(LAPACK_LIBRARIES ${LAPACKE_LIB} ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-    find_path(LAPACKE_INCLUDE_DIRS NAMES lapacke.h HINTS ${LAPACK_LIBRARIES})
-    if(LAPACK_FOUND)
-      message(STATUS "Lapacke libraries: ${LAPACK_LIBRARIES}")
-      message(STATUS "Lapacke include dirs: ${LAPACKE_INCLUDE_DIRS}")
-    else()
-      message(FATAL_ERROR "Error in Lapacke detection ! lapacke not found !") 
-    endif()
-
-  elseif(MSVC)
-    set(OPENBLAS_ROOT_DIR $ENV{OPENBLAS_ROOT_DIR} CACHE PATH "Path to the OpenBLAS.")
-    if(OPENBLAS_ROOT_DIR)
-      list(APPEND CMAKE_PREFIX_PATH "${OPENBLAS_ROOT_DIR}")
-      find_package(OpenBLAS REQUIRED)
-    else()
-      message(FATAL "Could not find OpenBLAS")
-    endif()
-    set(LAPACK_ROOT_DIR $ENV{LAPACK_ROOT_DIR} CACHE PATH "Path to the LAPACKE")
-    if(LAPACK_ROOT_DIR)
-      set(LAPACK_ROOT_DIR $ENV{LAPACK_ROOT_DIR} CACHE PATH "Path to the LAPACK.")
-      list(APPEND CMAKE_PREFIX_PATH "${LAPACK_ROOT_DIR}")
-    endif()
-    find_package(LAPACK REQUIRED)
-    find_library(LAPACKE_LIB NAMES openblas REQUIRED)
-    set(LAPACK_LIBRARIES ${LAPACKE_LIB} ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-    find_path(LAPACKE_INCLUDE_DIRS NAMES lapacke.h HINTS ${LAPACK_LIBRARIES})
-    if(LAPACK_FOUND)
-      message(STATUS "Lapacke libraries: ${LAPACK_LIBRARIES}")
-      message(STATUS "Lapacke include dirs: ${LAPACKE_INCLUDE_DIRS}")
-    else()
-      message(FATAL_ERROR "Error in Lapacke detection ! lapacke not found !") 
-    endif()
-
-  else()
-    message(FATAL "Not implemented")
-  endif()
-
-endif()
 
 if(NOT MEDCOUPLING_MICROMED)
   add_subdirectory(medcoupling_io)

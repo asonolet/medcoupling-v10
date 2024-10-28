@@ -19,6 +19,17 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
+find_package(HDF5 REQUIRED)
+find_package(medfile REQUIRED)
+
+if(NOT TARGET HDF5::HDF5)
+  if(BUILD_SHARED_LIBS)
+    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-shared)
+  else()
+    add_library(HDF5::HDF5 ALIAS hdf5::hdf5-static)
+  endif()
+endif()
+
 set(MEDLOADER_SOURCES
     CrackAlgo.cxx
     MEDLoader.cxx

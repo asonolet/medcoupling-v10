@@ -10,7 +10,7 @@ if(MEDCOUPLING_ENABLE_PARTITIONER)
 endif()
 
 if(MEDCOUPLING_ENABLE_SHAPERECOGN)
-  add_subdirectory(stat)
+  add_subdirectory(shape_recognizer)
 endif()
 
 if(MEDCOUPLING_ENABLE_STAT)

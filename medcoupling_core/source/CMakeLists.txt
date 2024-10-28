@@ -43,7 +43,7 @@ set_target_properties(
 if(MEDCOUPLING_USE_64BIT_IDS)
   target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
 endif()
-target_compile_options(medcouplingcpp PUBLIC -fsigned-char)
+target_compile_options(medcouplingcpp PRIVATE -fsigned-char)
 
 # if(WIN32)
 #   target_link_options(medcouplingcpp PRIVATE "-Wl,--export-all-symbols")
@@ -59,8 +59,17 @@ target_include_directories(medcouplingcpp
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/mesh>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/amr>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/field>"
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/polymesh>"
+  # "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/polymesh>"
+  "\$<INSTALL_INTERFACE:include>"
+  "\$<INSTALL_INTERFACE:include/interp_kernel>"
+  "\$<INSTALL_INTERFACE:include/array>"
+  "\$<INSTALL_INTERFACE:include/mesh>"
+  "\$<INSTALL_INTERFACE:include/amr>"
+  "\$<INSTALL_INTERFACE:include/field>"
 )
+
+# TODO
+# set_target_properties(medcouplingcpp PROPERTY PUBLIC_HEADERS ...)
 
 install(
   TARGETS medcouplingcpp
