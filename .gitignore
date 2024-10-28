@@ -1,6 +1,6 @@
 doc/user/input/api/*
-conan/
 build/
 install/
 venv/
 __pycache__/
+ConanPresets.json
