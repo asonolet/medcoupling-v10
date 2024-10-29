@@ -119,7 +119,6 @@ set(CORE_AMR_SOURCES
   amr/MEDCouplingCartesianAMRMesh.cxx
   amr/MEDCouplingAMRAttribute.cxx)
 
-
 add_library(medcouplingcpp
   ${CORE_INTERPKERNEL_SOURCES}
   ${CORE_ARRAY_SOURCES}
@@ -133,21 +132,7 @@ set_target_properties(
   INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH}
   OUTPUT_NAME "medcoupling")
 
-if(MEDCOUPLING_USE_64BIT_IDS)
-  target_compile_definitions(medcouplingcpp PUBLIC "MEDCOULPING_USE_64BIT_IDS")
-endif()
-target_compile_options(medcouplingcpp PRIVATE -fsigned-char)
-target_compile_options(medcouplingcpp PRIVATE -fPIC)
-
-if(NOT DEFINED MSVC)
-  target_compile_options(medcouplingcpp PRIVATE -Wsign-compare -Wconversion)
-endif()
-
-# if(WIN32)
-#   target_link_options(medcouplingcpp PRIVATE "-Wl,--export-all-symbols")
-# endif()
-
-# target_link_libraries(medcouplingcpp PUBLIC $<TARGET_OBJECTS:interpkernel> $<TARGET_OBJECTS:array> $<TARGET_OBJECTS:mesh> $<TARGET_OBJECTS:field> $<TARGET_OBJECTS:amr>)
+target_link_libraries(medcouplingcpp PRIVATE medcoupling_core_flags)
 
 target_include_directories(medcouplingcpp
   PUBLIC

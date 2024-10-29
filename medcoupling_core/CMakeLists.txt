@@ -37,10 +37,18 @@ project(
   HOMEPAGE_URL "https://github.com/SalomePlatform/medcoupling"
   LANGUAGES CXX)
 
+###########
+# OPTIONS #
+###########
+
 option(MEDCOUPLING_ENABLE_PYTHON "Build PYTHON bindings." ON)
 option(MEDCOUPLING_USE_64BIT_IDS "Size of IDs to refer cells and nodes." ON)
 option(MEDCOUPLING_USE_MPI "Adds MPI capabilities to medcoupling_core" OFF)
 option(MEDCOUPLING_MICROMED "Switch off med dependency" OFF)
+
+###########
+# VERSION #
+###########
 
 macro(tohexa num result)
   set(_hexa_map a b c d e f)
@@ -59,6 +67,25 @@ tohexa(${${PROJECT_NAME}_VERSION_PATCH} _patch)
 set(${PROJECT_NAME}_XVERSION "0x${_major}${_minor}${_patch}")
 
 configure_file(include/MEDCoupling_version.h.in include/MEDCoupling_version.h)
+
+#########
+# FLAGS #
+#########
+
+add_library(medcoupling_core_flags INTERFACE)
+
+if(MEDCOUPLING_USE_64BIT_IDS)
+  target_compile_definitions(medcoupling_core_flags PUBLIC "MEDCOULPING_USE_64BIT_IDS")
+endif()
+
+if(NOT DEFINED MSVC)
+  target_compile_options(medcoupling_core_flags PUBLIC -fsigned-char)
+  target_compile_options(medcoupling_core_flags PUBLIC -Wsign-compare -Wconversion)
+endif()
+
+###########
+# SOURCES #
+###########
 
 add_subdirectory(source)
 
