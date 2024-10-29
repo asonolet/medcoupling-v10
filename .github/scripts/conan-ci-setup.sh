@@ -27,5 +27,17 @@ conan remote add salome-conan-packages ./salome-conan-packages
 
 conan remove \* --lru=1M -c
 rm CMakePresets.json
+cat << 'END' > CMakePresets.json
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "include": ["./ConanPresets.json"]
+}
+END
+
 conan install . -b missing -o "*:shared=True"
 conan cache save '*/*:*' --file=conan_cache_save.tgz
