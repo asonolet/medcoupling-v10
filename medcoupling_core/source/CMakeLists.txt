@@ -133,6 +133,7 @@ set_target_properties(
   OUTPUT_NAME "medcoupling")
 
 target_link_libraries(medcouplingcpp PRIVATE medcoupling_core_flags)
+target_compile_definitions(medcouplingcpp PRIVATE interpkernel_EXPORTS)
 
 target_include_directories(medcouplingcpp
   PUBLIC
