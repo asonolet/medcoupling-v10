@@ -75,12 +75,12 @@ configure_file(include/MEDCoupling_version.h.in include/MEDCoupling_version.h)
 add_library(medcoupling_core_flags INTERFACE)
 
 if(MEDCOUPLING_USE_64BIT_IDS)
-  target_compile_definitions(medcoupling_core_flags PUBLIC "MEDCOULPING_USE_64BIT_IDS")
+  target_compile_definitions(medcoupling_core_flags INTERFACE "MEDCOULPING_USE_64BIT_IDS")
 endif()
 
 if(NOT DEFINED MSVC)
-  target_compile_options(medcoupling_core_flags PUBLIC -fsigned-char)
-  target_compile_options(medcoupling_core_flags PUBLIC -Wsign-compare -Wconversion)
+  target_compile_options(medcoupling_core_flags INTERFACE -fsigned-char)
+  target_compile_options(medcoupling_core_flags INTERFACE -Wsign-compare -Wconversion)
 endif()
 
 ###########
