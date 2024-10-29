@@ -29,9 +29,10 @@ class Recipe(ConanFile):
         cmake_layout(self)
 
     def configure(self):
-        if self.options.shared:
-            # fPIC might have been removed in config_options(), so we use rm_safe
-            self.options.rm_safe("fPIC")
+        pass
+        # if self.options.shared:
+        #     # fPIC might have been removed in config_options(), so we use rm_safe
+        #     self.options.rm_safe("fPIC")
 
     def generate(self):
         deps = CMakeDeps(self)
