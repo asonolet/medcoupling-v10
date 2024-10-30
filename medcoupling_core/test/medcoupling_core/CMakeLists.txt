@@ -52,17 +52,17 @@ target_link_libraries(
 
 add_test(NAME TestMEDCoupling COMMAND TestMEDCoupling)
 
-if(WIN32)
-  set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>")
-  set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
-  set_tests_properties(
-    TestMEDCoupling PROPERTIES
-    ENVIRONMENT "PATH=${UPDATED_PATH}"
-  )
-  add_custom_target(
-    genexdebug1 COMMAND
-    ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}, and now updated path : ${UPDATED_PATH}")
-endif()
+# if(WIN32)
+#   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCoupling>>")
+#   set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
+#   set_tests_properties(
+#     TestMEDCoupling PROPERTIES
+#     ENVIRONMENT "PATH=${UPDATED_PATH}"
+#   )
+#   add_custom_target(
+#     genexdebug1 COMMAND
+#     ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}, and now updated path : ${UPDATED_PATH}")
+# endif()
 
 add_executable(TestMEDCouplingExamples ${TestMEDCouplingExamples_SOURCES})
 target_link_libraries(
@@ -72,16 +72,24 @@ target_link_libraries(
 add_test(NAME TestMEDCouplingExamples COMMAND TestMEDCouplingExamples)
 
 if(WIN32)
-    set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>")
-  set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
+  get_target_property(PATH_TO_RUNDIR TestMEDCouplingExamples RUNTIME_OUTPUT_DIRECTORY)
   set_tests_properties(
       TestMEDCouplingExamples PROPERTIES
-    ENVIRONMENT "PATH=${UPDATED_PATH}"
+      ENVIRONMENT_MODIFICATION "PATH=path_list_prepend:${PATH_TO_RUNDIR}"
   )
-  add_custom_target(
-    genexdebug2 COMMAND
-    ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}, and now updated path : ${UPDATED_PATH}")
 endif()
+
+# if(WIN32)
+#   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:TestMEDCouplingExamples>>")
+#   set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
+#   set_tests_properties(
+#       TestMEDCouplingExamples PROPERTIES
+#     ENVIRONMENT "PATH=${UPDATED_PATH}"
+#   )
+#   add_custom_target(
+#     genexdebug2 COMMAND
+#     ${CMAKE_COMMAND} -E echo "TestMEDCoupling dll paths: ${DLL_PATHS}, and now updated path : ${UPDATED_PATH}")
+# endif()
 
 # set_tests_properties(TestMEDCouplingExamples PROPERTIES ENVIRONMENT "${tests_env}")
 
