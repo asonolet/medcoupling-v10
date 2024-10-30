@@ -19,6 +19,9 @@
 #
 # Author : Anthony Geay (CEA/DEN)
 
+# TODO: remove this dependency by splitting medloader into
+# compound_mesh (not dependant and stays there) and
+# medreader/writer (moves to medcoupling_io)
 find_package(HDF5 REQUIRED)
 find_package(medfile REQUIRED)
 
@@ -63,13 +66,11 @@ set(MEDLOADER_SOURCES
     MeshFormatWriter.cxx
     libmesh5.cxx)
 
-# add_definitions(${HDF5_DEFINITIONS} ${MEDFILE_DEFINITIONS} ${XDR_DEFINITIONS})
-
 add_library(medloader ${MEDLOADER_SOURCES})
 add_library(MEDCoupling::medloader ALIAS medloader)
 
 if(NOT DEFINED MSVC)
-    target_compile_options(medloader PRIVATE -Wsign-compare -Wconversion)
+  target_compile_options(medloader PRIVATE -Wsign-compare -Wconversion)
 endif()
 
 # if(WIN32)
@@ -96,21 +97,6 @@ set_target_properties(
   COMPILE_FLAGS ""
   INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH}
 )
-
-# TODO: remove this dependency by splitting medloader into
-# compound_mesh (not dependant and stays there) and
-# medreader/writer (moves to medcoupling_io)
-
-# find_package(HDF5 REQUIRED)
-# find_package(medfile REQUIRED)
-# 
-# if(NOT TARGET HDF5::HDF5)
-#   if(BUILD_SHARED_LIBS)
-#     add_library(HDF5::HDF5 ALIAS hdf5::hdf5-shared)
-#   else()
-#     add_library(HDF5::HDF5 ALIAS hdf5::hdf5-static)
-#   endif()
-# endif()
 
 target_link_libraries(medloader PUBLIC medcouplingcpp medfile::medfile HDF5::HDF5)
 

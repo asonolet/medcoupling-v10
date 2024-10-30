@@ -17,7 +17,7 @@
 # See http://www.salome-platform.org/ or email :
 # webmaster.salome@opencascade.com
 #
-# Author : Anthony Geay (CEA/DEN)
+# Author : Aymeric SONOLET (CEA/DES)
 
 
 find_package(
@@ -96,19 +96,9 @@ install(
   TARGETS ${SWIG_MODULE_pymedloader_REAL_NAME}
   # RUNTIME_DEPENDENCIES DIRECTORIES ${MEDCOUPLING_INSTALL_LIBS}
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
-# install(FILES MEDLoader.i MEDLoaderTypemaps.i MEDLoaderCommon.i
-#               MEDLoaderFinalize.i DESTINATION ${MEDCOUPLING_INSTALL_HEADERS})
-# 
-# salome_install_scripts(
-#   ${CMAKE_CURRENT_BINARY_DIR}/MEDLoader.py ${MEDCOUPLING_INSTALL_PYTHON}
-#   EXTRA_DPYS "${SWIG_MODULE_MEDLoader_REAL_NAME}")
-# 
+
 install(FILES MEDLoaderSplitter.py MEDLoaderFinalize.py
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
-
-# install(FILES ${ALL_TESTS} MEDLoaderDataForTest.py MEDLoaderTest1.py
-#               MEDLoaderTest2.py MEDLoaderTest3.py CrackAlongTest.py
-#         DESTINATION ${MEDCOUPLING_INSTALL_TESTS})
 
 install(FILES CaseIO.py CaseReader.py CaseWriter.py VTKReader.py
   DESTINATION ${MEDCOUPLING_INSTALL_BINS})
@@ -159,10 +149,6 @@ if(BUILD_TESTING)
   endforeach()
 
   if(NUMPY_FOUND)
-    # Add Remapper to the Python path:
-    # salome_accumulate_environment(
-    #   PYTHONPATH NOCHECK "${CMAKE_CURRENT_BINARY_DIR}/../../MEDCoupling_Swig")
-    # salome_generate_tests_environment(tests_env)
     foreach(test ${NUMPY_TESTS})
       get_filename_component(testname ${test} NAME_WE)
       add_test(
