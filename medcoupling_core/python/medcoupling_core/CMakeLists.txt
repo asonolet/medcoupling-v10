@@ -24,7 +24,6 @@ endif()
 set_source_files_properties(
   medcoupling_core.i PROPERTIES
   CPLUSPLUS ON
-  SWIG_MODULE_NAME medcoupling_core
   COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
 )
 
@@ -53,7 +52,6 @@ swig_add_library(
   medcoupling_core
   LANGUAGE python
   TYPE MODULE
-  OUTPUT_DIR .
   SOURCES medcoupling_core.i)
 
 if(WIN32)

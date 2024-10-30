@@ -51,7 +51,6 @@ endif()
 swig_add_library(
   MEDCouplingRemapper
   LANGUAGE python
-  OUTPUT_DIR .
   SOURCES MEDCouplingRemapper.i)
 
 target_include_directories(

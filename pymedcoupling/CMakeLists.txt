@@ -81,7 +81,6 @@ endif(MEDCOUPLING_USE_MPI)
 swig_add_library(
   medcoupling
   LANGUAGE python
-  OUTPUT_DIR .
   SOURCES medcoupling.i)
 
 target_include_directories(

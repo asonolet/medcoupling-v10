@@ -42,7 +42,6 @@ endif()
 
 set_source_files_properties(
   MEDLoader.i PROPERTIES
-  SWIG_MODULE_NAME MEDLoader
   COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
   CPLUSPLUS ON)
 
@@ -67,7 +66,7 @@ endif()
 swig_add_library(
   MEDLoader
   LANGUAGE python
-  OUTPUT_DIR .
+  TYPE MODULE
   SOURCES MEDLoader.i)
 
 target_include_directories(

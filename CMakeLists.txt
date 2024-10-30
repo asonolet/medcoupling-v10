@@ -38,6 +38,7 @@ project(
 
 cmake_policy(SET CMP0091 NEW) # The policy for not installing in user space.
 cmake_policy(SET CMP0144 NEW) # The policy for using PKGNM_ROOT for PkgNm module
+cmake_policy(SET CMP0078 OLD)
 
 #
 # User options
