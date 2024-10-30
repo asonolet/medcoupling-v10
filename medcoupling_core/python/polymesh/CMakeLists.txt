@@ -40,7 +40,11 @@ if(MEDCOUPLING_USE_64BIT_IDS)
 endif()
 
 
-set_source_files_properties(MEDLoader.i PROPERTIES CPLUSPLUS ON)
+set_source_files_properties(
+  MEDLoader.i PROPERTIES
+  SWIG_MODULE_NAME MEDLoader
+  COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
+  CPLUSPLUS ON)
 
 # set(MEDLoader_SWIG_DPYS_FILES MEDLoaderCommon.i MEDLoaderTypemaps.i)
 
