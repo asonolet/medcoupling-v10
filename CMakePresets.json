@@ -205,33 +205,39 @@
     },
     {
       "name": "dev",
-      "inherits": "conan-debug",
       "configuration": "Debug",
-      "configurePreset": "dev"
+      "configurePreset": "dev",
+      "inherits": "conan-debug"
     },
     {
       "name": "rel",
-      "inherits": "conan-release",
       "configuration": "Release",
-      "configurePreset": "rel"
+      "configurePreset": "rel",
+      "inherits": "conan-release"
     },
     {
       "name": "ci-ubuntu",
-      "inherits": "conan-release",
       "configuration": "Release",
-      "configurePreset": "ci-ubuntu"
+      "configurePreset": "ci-ubuntu",
+      "inherits": "conan-release"
     },
     {
       "name": "ci-windows",
-      "inherits": "conan-release",
       "configuration": "Release",
-      "configurePreset": "ci-windows"
+      "configurePreset": "ci-windows",
+      "inherits": "conan-release"
+    },
+    {
+      "name": "ci-windows-debug",
+      "configuration": "Debug",
+      "configurePreset": "ci-windows",
+      "inherits": "conan-debug"
     },
     {
       "name": "ci-macos",
-      "inherits": "conan-release",
       "configuration": "Release",
-      "configurePreset": "ci-macos"
+      "configurePreset": "ci-macos",
+      "inherits": "conan-release"
     }
   ],
   "testPresets": [

@@ -35,6 +35,14 @@ jobs:
       shell: bash
       run: bash < .github/scripts/conan-ci-setup.sh
 
+    - name: Debug ConanPresets
+      shell: bash
+      run: echo "ConanPresets.json"; echo "==================="; cat ConanPresets.json
+
+    - name: Debug generators/CMakePresets
+      shell: bash
+      run: echo; find . -path "*/generators/CMakePresets.json" -exec "cat {} ;"
+
     - name: Configure multi-config generator
       shell: bash
       run: cmake --preset=ci-windows
@@ -45,4 +53,4 @@ jobs:
 
     - name: Test
       shell: bash
-      run: ctest --preset=ci-windows || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
+      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --preset=ci-windows || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
