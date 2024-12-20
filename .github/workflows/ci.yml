@@ -43,14 +43,6 @@ jobs:
       shell: bash
       run: cmake --build --preset=ci-ubuntu
 
-    - name: Set datadir
-      shell: bash
-      run: export MEDCOUPLING_RESOURCE_DIR=${PWD}/resources 
-
     - name: Test
       shell: bash
-      run: ctest --preset=ci-ubuntu || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
-
-    - name: Debug
-      shell: bash
-      run: echo "MEDCOUPLING_RESOURCE_DIR:" ${MEDCOUPLING_RESOURCE_DIR}
+      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --preset=ci-ubuntu || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
