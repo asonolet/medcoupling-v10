@@ -39,6 +39,4 @@ conan remove \* --lru=1M -c
 # }
 # END
 
-conan install . -b missing -o "*:shared=True"
-conan install . -b missing -o "*:shared=True" -s build_type=Debug
-conan cache save '*/*:*' --file=conan_cache_save.tgz
+conan install . -b missing -o "*:shared=True" && conan install . -b missing -o "*:shared=True" -s build_type=Debug && conan cache save '*/*:*' --file=conan_cache_save.tgz
