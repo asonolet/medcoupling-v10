@@ -27,6 +27,11 @@ set_source_files_properties(
   COMPILE_DEFINITIONS MEDCOUPLING_SWIG4_COMPAT
 )
 
+
+if(WIN32)
+  set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
+endif()
+
 # set(MC_pyTestFiles ${ALL_TESTS} MEDCouplingDataForTest.py)
 
 # _ABR_ Ensure dependency mechanism on all SWIG files and headers
@@ -43,44 +48,42 @@ set_source_files_properties(
 #        ${PROJECT_BINARY_DIR}/doc/MEDCoupling_doc.i swig_ready)
 # endif()
 
-if(WIN32)
-  # Under Windows MEDCoupling conflicts wiht medcoupling from PyWrapping
-  set_property(SOURCE medcoupling_core.i PROPERTY COMPILE_DEFINITIONS WIN32)
-endif()
-
 swig_add_library(
-  medcoupling_core
+  pymedcoupling_core
   LANGUAGE python
-  TYPE MODULE
   SOURCES medcoupling_core.i)
 
-if(WIN32)
-  target_compile_options(${SWIG_MODULE_medcoupling_core_REAL_NAME} PRIVATE /bigobj)
-endif()
-
 target_include_directories(
-  ${SWIG_MODULE_medcoupling_core_REAL_NAME}
+  ${SWIG_MODULE_pymedcoupling_core_REAL_NAME}
   PRIVATE
   "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 
-set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
-set_property(TARGET ${SWIG_MODULE_medcoupling_core_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})
+set_target_properties(
+  ${SWIG_MODULE_pymedcoupling_core_REAL_NAME} PROPERTIES
+  INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH}
+  SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
 
-target_link_libraries(${SWIG_MODULE_medcoupling_core_REAL_NAME}
+target_link_libraries(${SWIG_MODULE_pymedcoupling_core_REAL_NAME}
   PUBLIC medcouplingcpp
   PRIVATE Python::Module Python::NumPy)
+
+if(WIN32)
+  target_compile_options(${SWIG_MODULE_pymedcoupling_core_REAL_NAME} PRIVATE /bigobj)
+endif()
 
 ################
 # Installation #
 ################
 
-install(TARGETS ${SWIG_MODULE_medcoupling_core_REAL_NAME}
+install(TARGETS ${SWIG_MODULE_pymedcoupling_core_REAL_NAME}
   # RUNTIME_DEPENDENCIES DIRECTORIES ${MEDCOUPLING_INSTALL_LIBS}
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 
 install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/medcoupling_core.py
+  TARGETS ${SWIG_MODULE_pymedcoupling_core_REAL_NAME}
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/medcoupling_core.py DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
 
 install(FILES vtk2medcoupling.py geom2medcoupling.py
   DESTINATION ${MEDCOUPLING_INSTALL_PYTHON})
@@ -118,12 +121,16 @@ else()
 endif()
 
 # if(WIN32)
-#   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_medcoupling_core_REAL_NAME}>>")
+#   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_pymedcoupling_core_REAL_NAME}>>")
 #   set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
-#   add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_medcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS}")
+#   add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_pymedcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS}")
 # endif()
 
-get_target_property(PATH_TO_RUNDIR ${SWIG_MODULE_medcoupling_core_REAL_NAME} RUNTIME_OUTPUT_DIRECTORY)
+if(WIN32)
+  get_target_property(PATH_TO_RUNDIR ${SWIG_MODULE_pymedcoupling_core_REAL_NAME} RUNTIME_OUTPUT_DIRECTORY)
+else()
+  set(PATH_TO_RUNDIR ${CMAKE_CURRENT_BINARY_DIR})
+endif()
 
 foreach(test ${ALL_TESTS})
   get_filename_component(testname ${test} NAME_WE)
