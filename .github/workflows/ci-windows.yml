@@ -41,7 +41,7 @@ jobs:
 
     - name: Debug generators/CMakePresets
       shell: bash
-      run: echo; find . -path "*/generators/CMakePresets.json" -exec "cat {} ;"
+      run: echo; find . -path "*/generators/CMakePresets.json" -exec cat {} \;
 
     - name: Configure multi-config generator
       shell: bash
