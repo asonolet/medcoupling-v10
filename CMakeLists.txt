@@ -202,6 +202,10 @@ mark_as_advanced(
 
 enable_testing()
 
+if(BUILD_TESTING)
+  set($ENV{MEDCOUPLING_RESOURCE_DIR} ${CMAKE_SOURCE_DIR}/resources)
+endif()
+
 # TODO: utiliser une target medcoupling_flags
 if(WIN32)
   add_compile_definitions(_USE_MATH_DEFINES)

@@ -240,9 +240,6 @@
       "hidden": true,
       "output": {
         "outputOnFailure": true
-      },
-      "environment": {
-        "MEDCOUPLING_RESOURCE_DIR": "${sourceDir}/resources"
       }
     },
     {
