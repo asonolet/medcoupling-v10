@@ -37,11 +37,11 @@ jobs:
 
     - name: Conan install release dep
       shell: bash
-      run: conan install -o "*:shared=True" -b missing
+      run: conan install . -o "*:shared=True" -b missing
 
     - name: Conan install debug dep
       shell: bash
-      run: conan install -o "*:shared=True" -s build_type=Debug -b missing
+      run: conan install . -o "*:shared=True" -s build_type=Debug -b missing
 
     - name: Save cache
       run: conan cache save '*/*:*' --file=conan_cache_save.tgz
