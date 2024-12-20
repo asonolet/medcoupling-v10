@@ -49,4 +49,4 @@ jobs:
 
     - name: Debug
       shell: bash
-      run: echo "MEDCOUPLING_RESOURCE_DIR: ${MEDCOUPLING_RESOURCE_DIR}"
+      run: echo "MEDCOUPLING_RESOURCE_DIR:" ${MEDCOUPLING_RESOURCE_DIR}
