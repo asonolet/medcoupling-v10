@@ -31,9 +31,20 @@ jobs:
         path: conan_cache_save.tgz
         key: conan-${{ matrix.os }}-${{ hashFiles('conan*.[pl][yo]*') }}
 
-    - name: Install dependencies
+    - name: Setup conan
       shell: bash
       run: bash < .github/scripts/conan-ci-setup.sh
+
+    - name: Conan install release dep
+      shell: bash
+      run: conan install -o "*:shared=True" -b missing
+
+    - name: Conan install debug dep
+      shell: bash
+      run: conan install -o "*:shared=True" -s build_type=Debug -b missing
+
+    - name: Save cache
+      run: conan cache save '*/*:*' --file=conan_cache_save.tgz
 
     - name: Debug ConanPresets
       shell: bash
