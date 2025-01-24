@@ -4,3 +4,4 @@ install/
 venv/
 __pycache__/
 ConanPresets.json
+venv-*

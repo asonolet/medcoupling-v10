@@ -11,7 +11,7 @@ class Recipe(ConanFile):
         "is_32bit": [True, False],
     }
     default_options = {
-        "shared": True,
+        "shared": False,
         "fPIC": True,
         "parallel": False,
         "is_32bit": False,

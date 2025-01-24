@@ -132,7 +132,7 @@ set_target_properties(
   INSTALL_RPATH ${MEDCOUPLING_INSTALL_LIBS_DEPS_RPATH}
   OUTPUT_NAME "medcoupling")
 
-target_link_libraries(medcouplingcpp PRIVATE medcoupling_core_flags)
+target_link_libraries(medcouplingcpp PRIVATE $<BUILD_INTERFACE:medcoupling_core_flags>)
 target_compile_definitions(medcouplingcpp PRIVATE interpkernel_EXPORTS)
 
 target_include_directories(medcouplingcpp

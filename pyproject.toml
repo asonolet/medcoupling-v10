@@ -16,3 +16,4 @@ wheel.packages = []
 [tool.scikit-build.cmake.define]
 CMAKE_PROJECT_TOP_LEVEL_INCLUDES = "ext/cmake-conan/conan_provider.cmake"
 CMAKE_INSTALL_RPATH_USE_LINK_PATH = "ON"
+BUILD_SHARED_LIBS = "ON"
