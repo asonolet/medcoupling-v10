@@ -64,7 +64,7 @@ jobs:
 
     - name: Source runtime
       shell: bash
-      run: .\build\conanrun.bat
+      run: .\\build\\generators\\conanrun.bat
 
     - name: Test
       shell: bash
