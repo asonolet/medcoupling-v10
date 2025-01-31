@@ -153,6 +153,9 @@ if(BUILD_TESTING)
     set_tests_properties(
       py${testname} PROPERTIES
       ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${PROJECT_BINARY_DIR}/medcoupling_core/python/polymesh:${PROJECT_BINARY_DIR}/medcoupling_core/python/medcoupling_core:$ENV{PYTHONPATH}")
+    set_tests_properties(
+      py${testname} PROPERTIES
+      ENVIRONMENT "PATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_RUNTIME_DLL_DIRS:medloader>:$ENV{PYTHONPATH}")
   endforeach()
 endif()
 

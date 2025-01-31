@@ -120,14 +120,11 @@ else()
   set(ALL_TESTS ${BASE_TESTS})
 endif()
 
-# if(WIN32)
-#   set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_pymedcoupling_core_REAL_NAME}>>")
-#   set(UPDATED_PATH "$<JOIN:${DLL_PATHS}$<SEMICOLON>$ENV{PATH},$<SEMICOLON>>")
-#   add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_pymedcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS}")
-# endif()
-
 if(WIN32)
-  get_target_property(PATH_TO_RUNDIR ${SWIG_MODULE_pymedcoupling_core_REAL_NAME} RUNTIME_OUTPUT_DIRECTORY)
+  set(DLL_PATHS "$<SHELL_PATH:$<TARGET_RUNTIME_DLL_DIRS:${SWIG_MODULE_pymedcoupling_core_REAL_NAME}>>")
+  set(PATH_TO_RUNDIR "${CMAKE_CURRENT_BINARY_DIR}$<SEMICOLON>${DLL_PATHS}$<SEMICOLON>$ENV{PATH}$<SEMICOLON>")
+  add_custom_target(genexdebug3 COMMAND ${CMAKE_COMMAND} -E echo "${SWIG_MODULE_pymedcoupling_core_REAL_NAME} dll paths: ${DLL_PATHS}")
+    # get_target_property(PATH_TO_RUNDIR ${SWIG_MODULE_pymedcoupling_core_REAL_NAME} RUNTIME_OUTPUT_DIRECTORY)
 else()
   set(PATH_TO_RUNDIR ${CMAKE_CURRENT_BINARY_DIR})
 endif()
@@ -138,14 +135,14 @@ foreach(test ${ALL_TESTS})
     NAME py${testname}
     COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${test})
   set_tests_properties(py${testname} PROPERTIES
-    ENVIRONMENT_MODIFICATION "PYTHONPATH=path_list_prepend:${PATH_TO_RUNDIR}")
+      ENVIRONMENT "PYTHONPATH=${PATH_TO_RUNDIR}$<SEMICOLON>$ENV{PYTHONPATH}")
 
   if(WIN32)
     # NOTE ici on fait l'hypothèse que sous windows tout les binaires runtime
     # sont dans le même dossier
     set_tests_properties(
       py${testname} PROPERTIES
-      ENVIRONMENT_MODIFICATION "PATH=path_list_prepend:${PATH_TO_RUNDIR}"
+      ENVIRONMENT "PATH=${PATH_TO_RUNDIR}$<SEMICOLON>$ENV{PATH}"
     )
   endif()
 endforeach()

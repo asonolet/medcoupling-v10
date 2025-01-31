@@ -58,6 +58,10 @@ jobs:
       shell: bash
       run: cmake --preset=ci-windows
 
+    - name: Debug genex
+      shell: bash
+      run: cmake --build build/ --target genexdebug3 --config=Debug
+
     - name: Build
       shell: bash
       run: cmake --build --preset=ci-windows
