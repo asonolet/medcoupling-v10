@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core", "swig", "numpy<2", "scipy"]
+requires = ["scikit-build-core", "swig", "numpy<2", "scipy", "conan"]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -9,11 +9,18 @@ requires-python = ">= 3.8"
 dependencies = ["numpy<2", "scipy"]
 
 [tool.scikit-build]
-cmake.verbose = true
+build.verbose = true
 logging.level = "INFO"
-wheel.packages = []
+build-dir = "build/{wheel_tag}"
 
 [tool.scikit-build.cmake.define]
 CMAKE_PROJECT_TOP_LEVEL_INCLUDES = "ext/cmake-conan/conan_provider.cmake"
-CMAKE_INSTALL_RPATH_USE_LINK_PATH = "ON"
-BUILD_SHARED_LIBS = "ON"
+CMAKE_POSITION_INDEPENDENT_CODE = true
+CONAN_INSTALL_ARGS = "--build=missing;--options=*:shared=False"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+# CMAKE_INSTALL_RPATH_USE_LINK_PATH = "ON"
+# BUILD_SHARED_LIBS = "ON"

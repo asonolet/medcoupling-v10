@@ -215,7 +215,7 @@ if(NOT MEDCOUPLING_MICROMED)
   add_subdirectory(medcoupling_tools)
 endif()
 
-if(MEDCOUPLING_ENABLE_PYTHON)
+if(MEDCOUPLING_ENABLE_PYTHON AND NOT MEDCOUPLING_MICROMED)
   add_subdirectory(pymedcoupling)
 endif()
 

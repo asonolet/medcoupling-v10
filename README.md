@@ -88,3 +88,10 @@ The MEDCoupling library is under a major refactoring for the v10. It will allow 
 The recommended approach to compile is to use SALOME official package
 manager (SAT). SAT will install MEDCoupling dependencies such as HDF5 and
 MEDFile, depending on the requested configuration (native or not).
+
+### Using aleady compiled hdf5 and medfile
+
+Use the following `cmake` variables:
+- medfile_ROOT: "xxx/INSTALL/medfile",
+- "hdf5_ROOT": "xxx/INSTALL/hdf5",
+- "CMAKE_BUILD_WITH_INSTALL_RPATH": "ON"
