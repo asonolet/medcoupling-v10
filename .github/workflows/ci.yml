@@ -41,18 +41,18 @@ jobs:
 
     - name: Conan install debug dep
       shell: bash
-      run: conan install . -o "*:shared=False" -s build_type=Debug -b missing
+      run: conan install . -o "*:shared=False" -s build_type=Release -b missing
 
     - name: Save cache
       run: conan cache save '*/*:*' --file=conan_cache_save.tgz
 
     - name: Configure single-config generator
       shell: bash
-      run: cmake --preset=ci-ubuntu
+      run: cmake --preset=conan-release
 
     - name: Build
       shell: bash
-      run: cmake --build --preset=ci-ubuntu
+      run: cmake --build --preset=conan-release
 
     - name: Test
       shell: bash

@@ -37,18 +37,14 @@ jobs:
 
     - name: Conan install release dep
       shell: bash
-      run: conan install . -o "*:shared=True" -b missing
-
-    - name: Conan install debug dep
-      shell: bash
-      run: conan install . -o "*:shared=True" -s build_type=Debug -b missing
+      run: conan install . -o "*:shared=False" -b missing
 
     - name: Save cache
       run: conan cache save '*/*:*' --file=conan_cache_save.tgz
 
     - name: Debug ConanPresets
       shell: bash
-      run: echo "ConanPresets.json"; echo "==================="; cat ConanPresets.json
+      run: echo "CMakeUserPresets.json"; echo "==================="; cat CMakeUserPresets.json
 
     - name: Debug generators/CMakePresets
       shell: bash
@@ -56,15 +52,11 @@ jobs:
 
     - name: Configure multi-config generator
       shell: bash
-      run: cmake --preset=ci-windows
-
-    - name: Debug genex
-      shell: bash
-      run: cmake --build build/ --target genexdebug3 --config=Debug
+      run: cmake --preset=conan-release
 
     - name: Build
       shell: bash
-      run: cmake --build --preset=ci-windows
+      run: cmake --build --preset=ci-release
 
     - name: Source runtime
       shell: bash
