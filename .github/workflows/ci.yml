@@ -52,4 +52,8 @@ jobs:
 
     - name: Test
       shell: bash
-      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest -B build/Release -S . || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
+      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --test-dir build/Release
+      
+    - name: Debug tests
+      shell: bash
+      run: echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat
