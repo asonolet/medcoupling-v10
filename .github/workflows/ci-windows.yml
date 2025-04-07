@@ -56,7 +56,7 @@ jobs:
 
     - name: Build
       shell: bash
-      run: cmake --build --preset=conan-default
+      run: cmake --build --preset=conan-release
 
     - name: Source runtime
       shell: bash
