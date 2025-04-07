@@ -52,11 +52,11 @@ jobs:
 
     - name: Configure multi-config generator
       shell: bash
-      run: cmake --preset=conan-release
+      run: cmake --preset=conan-default
 
     - name: Build
       shell: bash
-      run: cmake --build --preset=ci-release
+      run: cmake --build --preset=conan-default
 
     - name: Source runtime
       shell: bash
