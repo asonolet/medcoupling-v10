@@ -39,10 +39,6 @@ jobs:
       shell: bash
       run: conan install . -o "*:shared=False" -b missing
 
-    - name: Conan install debug dep
-      shell: bash
-      run: conan install . -o "*:shared=False" -s build_type=Release -b missing
-
     - name: Save cache
       run: conan cache save '*/*:*' --file=conan_cache_save.tgz
 
@@ -56,4 +52,4 @@ jobs:
 
     - name: Test
       shell: bash
-      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --preset=ci-ubuntu || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
+      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest -B build/Release -S . || echo $(ls -R .); cd build && find . -name UnitTestsResult | xargs cat ; cd ..
