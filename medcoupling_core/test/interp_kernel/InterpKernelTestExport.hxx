@@ -20,14 +20,14 @@
 #ifndef _INTERPKERNELTESTEXPORT_HXX_
 #define _INTERPKERNELTESTEXPORT_HXX_
 
-#ifdef WIN32
-#  if defined InterpKernelTest_EXPORTS
-#    define INTERPKERNELTEST_EXPORT __declspec( dllexport )
-#  else
-#    define INTERPKERNELTEST_EXPORT __declspec( dllimport )
-#  endif
-#else
+// #ifdef WIN32
+// #  if defined InterpKernelTest_EXPORTS
+// #    define INTERPKERNELTEST_EXPORT __declspec( dllexport )
+// #  else
+// #    define INTERPKERNELTEST_EXPORT __declspec( dllimport )
+// #  endif
+// #else
 #  define INTERPKERNELTEST_EXPORT
-#endif
+// #endif
 
 #endif

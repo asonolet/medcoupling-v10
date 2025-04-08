@@ -21,14 +21,14 @@
 #ifndef __MEDLOADERDEFINES_HXX__
 #define __MEDLOADERDEFINES_HXX__
 
-#ifdef WIN32
-# if defined medloader_EXPORTS
-#  define MEDLOADER_EXPORT __declspec(dllexport)
-# else
-#  define MEDLOADER_EXPORT __declspec(dllimport)
-# endif
-#else
+// #ifdef WIN32
+// # if defined medloader_EXPORTS
+// #  define MEDLOADER_EXPORT __declspec(dllexport)
+// # else
+// #  define MEDLOADER_EXPORT __declspec(dllimport)
+// # endif
+// #else
 # define MEDLOADER_EXPORT
-#endif 
+// #endif 
 
 #endif
