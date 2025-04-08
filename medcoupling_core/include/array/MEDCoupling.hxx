@@ -22,25 +22,25 @@
 
 #define _MEDCOUPLING_HXX_
 
-#if defined(WIN32) and defined(BUILD_SHARED_LIBS)
-#  if defined(medcouplingcpp_EXPORTS)
-#    define MEDCOUPLING_EXPORT __declspec( dllexport )
-#  else
-#    define MEDCOUPLING_EXPORT __declspec( dllimport )
-#  endif
-#else
+// #if defined(WIN32) && BUILD_SHARED_LIBS == ON
+// #  if defined(medcouplingcpp_EXPORTS)
+// #    define MEDCOUPLING_EXPORT __declspec( dllexport )
+// #  else
+// #    define MEDCOUPLING_EXPORT __declspec( dllimport )
+// #  endif
+// #else
 #  define MEDCOUPLING_EXPORT
-#endif
+// #endif
 
-#if defined(WIN32) and defined(BUILD_SHARED_LIBS)
-#  if defined medcouplingremapper_EXPORTS
-#    define MEDCOUPLINGREMAPPER_EXPORT __declspec( dllexport )
-#  else
-#    define MEDCOUPLINGREMAPPER_EXPORT __declspec( dllimport )
-#  endif
-#else
+// #if defined(WIN32) && BUILD_SHARED_LIBS == ON
+// #  if defined medcouplingremapper_EXPORTS
+// #    define MEDCOUPLINGREMAPPER_EXPORT __declspec( dllexport )
+// #  else
+// #    define MEDCOUPLINGREMAPPER_EXPORT __declspec( dllimport )
+// #  endif
+// #else
 #  define MEDCOUPLINGREMAPPER_EXPORT
-#endif
+// #endif
 
 #ifdef WIN32
 #pragma warning( disable : 4290 )
