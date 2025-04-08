@@ -1,4 +1,4 @@
-name: Continuous Integration for Windows
+name: Tests on Windows
 
 on:
   push:
