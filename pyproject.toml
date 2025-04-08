@@ -29,7 +29,7 @@ dev = [
 [tool.cibuildwheel]
 before-all = [
     "uname -a",
-    "bash < {package}/.github/scripts/conan-ci-setup.sh",
+    "bash {package}/.github/scripts/conan-ci-setup.sh",
     "sudo apt install -y libopenmpi-dev"
 ]
 test-requires = "pytest mpi4py"
