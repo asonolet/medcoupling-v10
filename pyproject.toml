@@ -27,6 +27,10 @@ dev = [
 # CMAKE_INSTALL_RPATH_USE_LINK_PATH = "ON"
 # BUILD_SHARED_LIBS = "ON"
 [tool.cibuildwheel]
-before-all = "uname -a"
+before-all = [
+    "uname -a",
+    "bash < {package}/.github/scripts/conan-ci-setup.sh",
+    "sudo apt install -y libopenmpi-dev"
+]
 test-requires = "pytest mpi4py"
 test-command = "pytest {project}"
