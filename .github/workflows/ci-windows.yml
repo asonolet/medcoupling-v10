@@ -64,7 +64,7 @@ jobs:
 
     - name: Test
       shell: bash
-      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --test-dir build/
+      run: MEDCOUPLING_RESOURCE_DIR="${PWD}/resources" ctest --test-dir build/ -C Release
       
     - name: Debug tests
       shell: bash
