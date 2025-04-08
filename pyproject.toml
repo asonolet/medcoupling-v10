@@ -30,7 +30,8 @@ dev = [
 before-all = [
     "uname -a",
     "bash {package}/.github/scripts/conan-ci-setup.sh",
-    "yum install -y openmpi-devel"
+    "yum install -y openmpi-devel",
+    "export CC=$( which mpicc )"
 ]
 test-requires = "pytest mpi4py"
 test-command = "pytest {project}"
