@@ -22,7 +22,7 @@
 
 #define _MEDCOUPLING_HXX_
 
-#ifdef WIN32
+#if defined(WIN32) and defined(BUILD_SHARED_LIBS)
 #  if defined(medcouplingcpp_EXPORTS)
 #    define MEDCOUPLING_EXPORT __declspec( dllexport )
 #  else
@@ -32,7 +32,7 @@
 #  define MEDCOUPLING_EXPORT
 #endif
 
-#ifdef WIN32
+#if defined(WIN32) and defined(BUILD_SHARED_LIBS)
 #  if defined medcouplingremapper_EXPORTS
 #    define MEDCOUPLINGREMAPPER_EXPORT __declspec( dllexport )
 #  else

@@ -25,7 +25,7 @@
 #ifndef ICoCo_DeclSpec_included
 #define ICoCo_DeclSpec_included
 
-#ifdef WIN32
+#if defined(WIN32) and defined(BUILD_SHARED_LIBS)
 #  if defined medicoco_EXPORTS
 #    define ICOCO_EXPORT __declspec( dllexport )
 #  else
