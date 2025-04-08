@@ -59,6 +59,9 @@ target_include_directories(
   "\$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/medcoupling_core/python/medcoupling_core>"
 )
+if(WIN32)
+  target_compile_options(${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PRIVATE /bigobj)
+endif()
 
 set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE)
 set_property(TARGET ${SWIG_MODULE_MEDCouplingRemapper_REAL_NAME} PROPERTY INSTALL_RPATH ${MEDCOUPLING_INSTALL_PYTHON_LIBS_DEPS_RPATH})

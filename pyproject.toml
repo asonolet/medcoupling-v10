@@ -22,6 +22,7 @@ CONAN_INSTALL_ARGS = "--build=missing;--options=*:shared=False"
 dev = [
     "cibuildwheel>=2.23.2",
     "pytest>=8.3.5",
+    "mpi4py"
 ]
 # CMAKE_INSTALL_RPATH_USE_LINK_PATH = "ON"
 # BUILD_SHARED_LIBS = "ON"
